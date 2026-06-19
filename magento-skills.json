@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "repository": "harishrave/magento-agent-skills",
+  "install": {
+    "script": "./install.sh",
+    "installsAll": true,
+    "skills": [
+      "magento-module",
+      "magento-admin-ui",
+      "magento-testing",
+      "magento-audit"
+    ],
+    "environment": {
+      "agent": "RAVEDIGITAL_SKILLS_AGENT",
+      "repoUrl": "RAVEDIGITAL_SKILLS_REPO_URL",
+      "branch": "RAVEDIGITAL_SKILLS_BRANCH"
+    }
+  }
+}
