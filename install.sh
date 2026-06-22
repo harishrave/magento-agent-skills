@@ -196,8 +196,17 @@ install_all_skills_from_repo() {
     return 0
 }
 
+force_copy_for_remote_install() {
+    if [ "$INSTALL_MODE" = "symlink" ]; then
+        print_warning "Remote install copies skills into your project"
+        print_warning "(symlinks would break when the temporary download directory is removed)"
+        INSTALL_MODE="copy"
+    fi
+}
+
 install_via_git() {
     dest_dir="$1"
+    force_copy_for_remote_install
     tmp_dir=$(mktemp -d)
     print_info "Cloning repository..."
     git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$tmp_dir" 2>/dev/null || {
@@ -213,6 +222,7 @@ install_via_git() {
 
 install_via_tarball() {
     dest_dir="$1"
+    force_copy_for_remote_install
     tmp_dir=$(mktemp -d)
     tarball_url="https://github.com/harishrave/magento-agent-skills/archive/refs/heads/${BRANCH}.tar.gz"
     print_info "Downloading archive..."
@@ -310,6 +320,8 @@ done
 echo ""
 if [ "$INSTALL_MODE" = "symlink" ]; then
     print_info "Symlinked skills update when you git pull in the cloned skills repo."
+else
+    print_info "Copied skills — re-run install.sh or the curl one-liner to update after repo changes."
 fi
 echo ""
 echo "Start a new Agent chat, then try:"

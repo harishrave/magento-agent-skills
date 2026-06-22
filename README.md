@@ -29,11 +29,13 @@ git clone https://github.com/harishrave/magento-agent-skills.git
 ./magento-agent-skills/install.sh cursor
 ```
 
-One-liner (no clone):
+One-liner (no clone — downloads and **copies** skills into your project):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/harishrave/magento-agent-skills/main/install.sh | sh -s cursor
 ```
+
+For symlink installs (live updates via `git pull`), clone the repo first — see [docs/install.md](docs/install.md).
 
 **Alternative** (requires Node.js): `npx skills add harishrave/magento-agent-skills -a cursor -y`
 

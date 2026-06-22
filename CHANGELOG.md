@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **`install.sh` one-liner** — remote install (curl pipe) now **copies** skills instead of symlinking to a temp directory that was deleted (broken symlinks on teammate machines)
+
 ## [1.0.0] - 2026-06-18
 
 Initial release — RaveDigital Magento agent skills for Magento 2, Mage-OS, and Adobe Commerce.
@@ -24,6 +28,7 @@ Initial release — RaveDigital Magento agent skills for Magento 2, Mage-OS, and
 - **`AGENTS.md`** — agent entry point with skill routing and RaveDigital defaults
 - **docs/** — quick-start, install, example-prompts, skills-map, testing-skills, contributing
 - **NOTICE.md** — RaveDigital copyright (proprietary; no separate LICENSE file)
+- **Example module** — `RaveDigital_StoreLocator` used consistently across skills and docs
 
 [Unreleased]: https://github.com/harishrave/magento-agent-skills/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/harishrave/magento-agent-skills/releases/tag/v1.0.0

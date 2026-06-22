@@ -65,26 +65,34 @@ If no agent is passed, the script auto-detects an existing agent skills director
 
 ### What gets created
 
+**Clone + install (symlink):**
+
 ```
 your-magento-project/
-└── .cursor/skills/                    # or .agents/skills/
-    ├── magento-module -> .../skills/magento-module
-    ├── magento-admin-ui -> .../skills/magento-admin-ui
-    ├── magento-testing -> .../skills/magento-testing
-    └── magento-audit -> .../skills/magento-audit
+└── .cursor/skills/
+    ├── magento-module -> /path/to/magento-agent-skills/skills/magento-module
+    └── ...
+```
+
+**One-liner (copy):**
+
+```
+your-magento-project/
+└── .cursor/skills/
+    ├── magento-module/    # full copy with SKILL.md + references/
+    └── ...
 ```
 
 All four skills are always installed together.
 
 ### Update skills
 
-```bash
-cd /path/to/magento-agent-skills
-git pull
-# Symlinked installs pick up changes immediately — start a new Agent chat
-```
+| Install method | How to update |
+|---|---|
+| Clone + symlink | `git pull` in the cloned `magento-agent-skills` repo |
+| One-liner or `--copy` | Re-run the one-liner or `./install.sh --copy` |
 
-Re-run `./install.sh` if you used `--copy`.
+Start a **new Agent chat** after updating skills.
 
 ---
 
@@ -143,10 +151,12 @@ RaveDigital skills (backend) and [Hyvä AI Tools](https://github.com/hyva-themes
 
 | Problem | Solution |
 |---|---|
-| Agent ignores skills | New Agent chat; confirm all three `SKILL.md` files exist |
+| Agent ignores skills | New Agent chat; confirm all four `SKILL.md` files exist under `.cursor/skills/` |
+| One-liner left broken symlinks (red paths, no `SKILL.md`) | Remove broken links: `rm -rf .cursor/skills/magento-*` then re-run the one-liner (script now **copies** files for remote install) |
 | Symlinks broken on Windows | Re-run with `--copy` |
 | Wrong directory | Use `--agents` for `.agents/skills/` |
-| Old content | `git pull` in skills repo; new Agent session |
+| Old content (copy install) | Re-run one-liner or `./install.sh --copy` |
+| Old content (symlink install) | `git pull` in cloned skills repo; new Agent session |
 
 ---
 
