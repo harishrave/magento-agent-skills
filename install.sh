@@ -198,8 +198,6 @@ install_all_skills_from_repo() {
 
 force_copy_for_remote_install() {
     if [ "$INSTALL_MODE" = "symlink" ]; then
-        print_warning "Remote install copies skills into your project"
-        print_warning "(symlinks would break when the temporary download directory is removed)"
         INSTALL_MODE="copy"
     fi
 }
@@ -207,6 +205,7 @@ force_copy_for_remote_install() {
 install_via_git() {
     dest_dir="$1"
     force_copy_for_remote_install
+    # mktemp -d creates a new unique dir (e.g. /tmp/tmp.Ab12Cd) — only this run's clone is removed
     tmp_dir=$(mktemp -d)
     print_info "Cloning repository..."
     git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$tmp_dir" 2>/dev/null || {
@@ -223,6 +222,7 @@ install_via_git() {
 install_via_tarball() {
     dest_dir="$1"
     force_copy_for_remote_install
+    # mktemp -d creates a new unique dir — only this run's download is removed
     tmp_dir=$(mktemp -d)
     tarball_url="https://github.com/harishrave/magento-agent-skills/archive/refs/heads/${BRANCH}.tar.gz"
     print_info "Downloading archive..."
