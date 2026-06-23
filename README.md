@@ -142,13 +142,6 @@ npx skills add harishrave/magento-agent-skills@v1.0.0 -a cursor -y
 - Git (recommended for symlink install)
 - Node.js (optional — only for `npx skills` alternative)
 
-## Optional: pair with MCP
-
-Skills carry **procedures and conventions**. For live merged config and store data, pair with:
-
-- [elgentos/magento2-dev-mcp](https://github.com/elgentos/magento2-dev-mcp)
-- [mage-os-lab/magento2-lsp](https://github.com/mage-os-lab/magento2-lsp)
-
 ## Contributing
 
 See [docs/contributing.md](docs/contributing.md). Skill changes should be reviewed like library code —
