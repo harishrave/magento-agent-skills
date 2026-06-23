@@ -16,6 +16,7 @@ passes `bin/magento setup:di:compile` and `phpcs --standard=Magento2` without re
 | [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, CLI/cron, debugging |
 | [magento-admin-ui](skills/magento-admin-ui/) | Admin grids/forms, ui_component, data providers, extending core listings |
 | [magento-testing](skills/magento-testing/) | PHPUnit tests, PHPCS/PHPStan, upgrade regression, module-scoped test runs |
+| [magento-browser-testing](skills/magento-browser-testing/) | Playwright MCP in Cursor: login, checkout, admin UI (local specs optional for CI) |
 | [magento-audit](skills/magento-audit/) | Project audits: version/security, database, code review, UI/UX reports |
 
 ## Quick install
@@ -39,18 +40,17 @@ For symlink installs (live updates via `git pull`), clone the repo first — see
 
 **Alternative** (requires Node.js): `npx skills add harishrave/magento-agent-skills -a cursor -y`
 
-See [docs/quick-start.md](docs/quick-start.md) for onboarding, [docs/example-prompts.md](docs/example-prompts.md) for copy-paste prompts, and [docs/install.md](docs/install.md) for install and troubleshooting.
+See [docs/quick-start.md](docs/quick-start.md), [docs/example-prompts.md](docs/example-prompts.md), and [docs/install.md](docs/install.md).
 
 ## Usage
 
 Skills load automatically when your prompts match their descriptions. Examples:
 
-- *"Create RaveDigital_StoreLocator module for retail store locator"*
-- *"Add a column to the product admin grid"*
-- *"Why does setup:di:compile fail?"*
-- *"Run a technical audit — version, database, code, and UX recommendations"*
-- *"We're on 2.4.7-p7 — what should we upgrade to?"*
-- *"Add a unit test for RaveDigital\\StoreLocator\\Model\\StoreHours"*
+- *"Ship RaveDigital_StoreLocator: schema, admin grid, unit tests — compile and phpunit must pass"*
+- *"Empty admin grid — dataProvider ravedigital_store_location_listing_data_source. Diagnose and fix"*
+- *"Post-upgrade gate: setup:di:compile + PHPCS + PHPStan on all app/code modules"*
+- *"Playwright MCP: validate guest checkout through shipping — report pass/fail with screenshots"*
+- *"Client audit: version, database, app/code review, UX — audit-report-template.md, findings only"*
 
 Natural language is enough — no agent-specific slash commands required.
 
@@ -64,6 +64,7 @@ magento-agent-skills/
 │   ├── magento-module/references/     # Module development guides
 │   ├── magento-admin-ui/references/   # Admin ui_component guides
 │   ├── magento-testing/references/    # PHPUnit unit & integration tests
+│   ├── magento-browser-testing/references/  # Playwright E2E & UI validation
 │   └── magento-audit/references/      # Project audit pillars & report template
 ├── docs/
 │   ├── quick-start.md       # 5-minute onboarding
@@ -101,6 +102,14 @@ magento-agent-skills/
 | | `integration-testing.md` | DB isolation, fixtures, Bootstrap |
 | | `test-troubleshooting.md` | Common PHPUnit/integration failures |
 | | `test-checklist.md` | Pre-merge test checklist |
+| **magento-browser-testing** | `playwright-mcp.md` | Playwright MCP + Cursor (default) |
+| | `playwright-setup.md` | Optional local Playwright for CI |
+| | `selectors-and-pom.md` | getByRole, page objects, assertions |
+| | `storefront-flows.md` | Login, search, cart, checkout |
+| | `b2b-flows.md` | Company, quotes, B2B approval |
+| | `admin-browser-tests.md` | Admin grid/form validation |
+| | `browser-troubleshooting.md` | Flaky tests, traces, debug |
+| | `browser-test-checklist.md` | Pre-merge browser test checklist |
 | **magento-admin-ui** | `admin-grid.md` | Custom admin listings |
 | | `admin-form.md` | Entity edit forms |
 | | `grid-data-providers.md` | CollectionFactory wiring |

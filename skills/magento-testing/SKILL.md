@@ -7,9 +7,10 @@ description: >-
   test directory layout (Test/Unit, Test/Integration), @magentoAppIsolation, @magentoDbIsolation,
   fixtures, and troubleshooting. Use when the user asks to add, fix, or run tests; test after
   Magento upgrade; run tests for Vendor_Module; write unit tests for a module; run phpcs or
-  phpstan on app/code; mock dependencies; or test Repository, Model, Plugin. For implementing
-  module code use magento-module. For project audits use magento-audit. Do NOT trigger for
-  MFTF/browser tests unless explicitly requested, or non-Magento test frameworks.
+  phpstan on app/code; mock dependencies; or test Repository, Model, Plugin. For Playwright or
+  browser E2E use magento-browser-testing. For implementing module code use magento-module.
+  For project audits use magento-audit. Do NOT trigger for Playwright/browser unless explicitly
+  requested; do not trigger for non-Magento test frameworks.
 requires: magento-module
 ---
 
@@ -62,25 +63,20 @@ vendor/bin/phpstan analyse app/code/RaveDigital/StoreLocator --level=5
 
 ## Master prompts (copy-paste)
 
-**Unit tests for a module:**
+See [docs/example-prompts.md](../../docs/example-prompts.md#magento-testing) for the full library.
+
+**Module quality gate:**
 
 ```
-Write PHPUnit unit tests for RaveDigital_StoreLocator per unit-test-generation.md.
-Target Model/StoreHours and plugins with mocked dependencies. Run phpunit when done.
+Run module-testing.md gate for RaveDigital_StoreLocator: unit tests, PHPCS (Magento2), PHPStan.
+Report pass/fail table. Do not fix unless tests fail.
 ```
 
-**Full module test gate:**
+**Post-upgrade:**
 
 ```
-Run module-testing.md workflow for RaveDigital_StoreLocator: unit tests, PHPCS, PHPStan.
-Report pass/fail summary.
-```
-
-**After upgrade:**
-
-```
-We upgraded from 2.4.7-p7 to 2.4.8-p4. Run version-upgrade-testing.md for all app/code modules.
-Compare setup:di:compile and test results.
+Upgraded 2.4.7-p7 → 2.4.8-p4. Run version-upgrade-testing.md on all app/code modules.
+Include setup:di:compile and static analysis summary.
 ```
 
 ## Unit test rules (RaveDigital)
@@ -113,7 +109,8 @@ Compare setup:di:compile and test results.
 |---|---|
 | Code/schema fixes | **magento-module** |
 | Upgrade blockers (version) | **magento-audit** version-and-security |
-| Missing admin test coverage | **magento-admin-ui** (manual/MFTF if requested) |
+| Missing admin test coverage | **magento-admin-ui** + **magento-browser-testing** |
+| Browser E2E / Playwright | **magento-browser-testing** |
 
 ## Mage-OS notes
 

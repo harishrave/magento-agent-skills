@@ -104,18 +104,41 @@ Split **admin** vs **storefront**:
 
 See [ui-ux-review.md](references/ui-ux-review.md).
 
-## Master audit prompt (copy-paste for clients)
+## Master prompts (copy-paste)
+
+Full library: [docs/example-prompts.md](../../docs/example-prompts.md#magento-audit).
+
+**Full client audit:**
 
 ```
-Run a RaveDigital Magento project audit per magento-audit skill.
+Run a RaveDigital Magento project audit — client deliverable, findings only.
 
-Cover:
-1. Version & security — current patch vs latest recommended
-2. Database optimization opportunities
-3. Custom code review (app/code) — deprecated patterns and standards
-4. UI/UX — admin and storefront suggestions
+Pillars: version/security, database optimization, app/code review, admin + storefront UX.
+Format: audit-report-template.md. Severity: Critical / High / Medium / Low.
+Do not implement fixes in this pass.
+```
 
-Output using audit-report-template.md. Findings only — do not change code yet.
+**Upgrade readiness:**
+
+```
+Upgrade assessment: bin/magento --version is 2.4.7-p7.
+Recommend target patch, security gaps, and blockers before 2.4.8.x.
+version-and-security.md. Prioritized findings table.
+```
+
+**Pre-release code gate:**
+
+```
+Pre-release code review of app/code: ObjectManager, InstallSchema, preferences,
+unescaped .phtml, risky plugins. Prioritized table per code-review.md — no code changes yet.
+```
+
+**Phased audit → fix:**
+
+```
+Phase 1: Full magento-audit (audit-report-template.md).
+Phase 2: Implement top 3 Critical/High code findings only (hand off to magento-module).
+Do not start Phase 2 until I approve the audit summary.
 ```
 
 ## Final checklist

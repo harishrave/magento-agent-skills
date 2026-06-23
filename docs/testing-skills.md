@@ -30,7 +30,7 @@ cd /var/www/html/mage-os
 | B | Unit test scaffold | Yes (test only) | Optional | Correct `Test/Unit/` layout, mocks, no ObjectManager |
 | C | Unit test + run | Yes | Yes | `vendor/bin/phpunit` exits 0 |
 | D | Integration test | Yes | Yes (if DB configured) | `@magentoDbIsolation`, Bootstrap pattern |
-| E | Anti-patterns | No | No | Agent refuses MFTF/JS when not asked |
+| E | Anti-patterns | No | No | PHPUnit skill refuses Playwright; browser skill refuses PHPUnit-only |
 | F | Module test gate | No | Optional | Cites module-testing + static-analysis |
 | G | Upgrade testing | No | No | Cites version-upgrade-testing.md |
 
@@ -204,8 +204,18 @@ Add Cypress tests for the checkout store locator map widget.
 
 **Pass if the agent:**
 
-- Declines or redirects (magento-testing is PHPUnit unit/integration, not frontend JS)
-- Suggests MFTF only if you explicitly want browser functional tests
+- Routes to **magento-browser-testing** (Playwright) — not magento-testing
+- Offers install steps if Playwright not configured
+
+**Prompt (PHPUnit skill should not take Playwright):**
+
+```
+Create a Playwright test for customer login.
+```
+
+**Pass if the agent:**
+
+- Uses **magento-browser-testing**, not magento-testing
 
 **Prompt:**
 
@@ -262,6 +272,7 @@ Run setup:di:compile and phpunit for the new tests.
 | **magento-module** | "Which skill for db_schema.xml? Do not write code." |
 | **magento-admin-ui** | "Grid has headers but no rows — which reference doc?" → `grid-data-providers.md` |
 | **magento-testing** | Tests A–G above |
+| **magento-browser-testing** | "Use Playwright MCP to test customer login" → cites playwright-mcp + storefront-flows |
 
 Full install verification: [install.md](install.md).
 

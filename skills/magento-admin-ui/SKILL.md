@@ -77,6 +77,35 @@ data providers, collection registration, extending core listings, and debugging 
 - "Edit form for entity" → form ui_component + `buttons` + data provider with `DataPersistor`
   ([references/admin-form.md](references/admin-form.md)).
 
+## Master prompts (copy-paste)
+
+Full library: [docs/example-prompts.md](../../docs/example-prompts.md#magento-admin-ui).
+
+**Admin grid (full stack):**
+
+```
+Build the Store Locations admin grid for RaveDigital_StoreLocator:
+menu, ACL, layout, ui_component listing, data provider, CollectionFactory in di.xml.
+Columns: location_id, name, store_code, status, actions.
+
+Done when rows load from ravedigital_store_location. admin-grid.md.
+```
+
+**Extend product grid:**
+
+```
+Add "Visible in locator" yes/no to product_listing via merge XML — select filter, column class.
+No vendor edits. extend-core-grids.md.
+```
+
+**Empty grid triage:**
+
+```
+Grid shows headers but zero rows. Module: RaveDigital_StoreLocator.
+dataProvider: ravedigital_store_location_listing_data_source.
+Diagnose and fix per admin-ui-troubleshooting.md + grid-data-providers.md.
+```
+
 ## Final checklist
 
 - [ ] ui_component name matches layout reference

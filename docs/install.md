@@ -1,7 +1,7 @@
 # Installation Guide
 
 Install **all** RaveDigital Magento agent skills in one step — `magento-module`, `magento-admin-ui`,
-`magento-testing`, and `magento-audit`.
+`magento-testing`, `magento-audit`, and `magento-browser-testing`.
 
 > **Repository:** [github.com/harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills)
 
@@ -83,7 +83,7 @@ your-magento-project/
     └── ...
 ```
 
-All four skills are always installed together.
+All five skills are always installed together.
 
 ### Update skills
 
@@ -114,6 +114,7 @@ mkdir -p .cursor/skills
 cp -r magento-agent-skills/skills/magento-module .cursor/skills/
 cp -r magento-agent-skills/skills/magento-admin-ui .cursor/skills/
 cp -r magento-agent-skills/skills/magento-testing .cursor/skills/
+cp -r magento-agent-skills/skills/magento-browser-testing .cursor/skills/
 ```
 
 ---
@@ -125,6 +126,7 @@ ls .cursor/skills/magento-module/SKILL.md
 ls .cursor/skills/magento-admin-ui/SKILL.md
 ls .cursor/skills/magento-testing/SKILL.md
 ls .cursor/skills/magento-audit/SKILL.md
+ls .cursor/skills/magento-browser-testing/SKILL.md
 ```
 
 1. Open your Magento project in Cursor
@@ -133,6 +135,41 @@ ls .cursor/skills/magento-audit/SKILL.md
 4. Expect: **magento-admin-ui** and **magento-module**
 
 See [testing-skills.md](testing-skills.md) for full test plans.
+
+---
+
+## Playwright MCP (Cursor)
+
+Browser testing uses **Playwright MCP** — not `npm init playwright` in the Magento repo by default.
+
+Add to **Magento project** `.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}
+```
+
+One-time per machine:
+
+```bash
+npx playwright install chromium
+```
+
+Restart Cursor, then in a new Agent chat:
+
+```
+Use Playwright MCP to open the storefront homepage and confirm it loads.
+```
+
+Full guide: `skills/magento-browser-testing/references/playwright-mcp.md` (after skills install).
+
+For **CI regression specs** only, see `playwright-setup.md` in the same skill.
 
 ---
 
@@ -151,7 +188,7 @@ RaveDigital skills (backend) and [Hyvä AI Tools](https://github.com/hyva-themes
 
 | Problem | Solution |
 |---|---|
-| Agent ignores skills | New Agent chat; confirm all four `SKILL.md` files exist under `.cursor/skills/` |
+| Agent ignores skills | New Agent chat; confirm all five `SKILL.md` files exist under `.cursor/skills/` |
 | One-liner left broken symlinks (red paths, no `SKILL.md`) | Remove broken links: `rm -rf .cursor/skills/magento-*` then re-run the one-liner (script now **copies** files for remote install) |
 | Symlinks broken on Windows | Re-run with `--copy` |
 | Wrong directory | Use `--agents` for `.agents/skills/` |

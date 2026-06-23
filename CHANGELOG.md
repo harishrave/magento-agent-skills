@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **`install.sh` one-liner** — remote install (curl pipe) now **copies** skills instead of symlinking to a temp directory that was deleted (broken symlinks on teammate machines)
+- **`install.sh` one-liner** — remote install copies skills instead of broken symlinks to deleted temp dirs
+
+### Changed
+
+- **docs/example-prompts.md** — richer prompts with context, done criteria, and multi-skill workflows
+- **SKILL.md master prompts** — magento-module, magento-admin-ui, magento-audit aligned with example-prompts library
+- **magento-browser-testing** — default path is Playwright MCP + Cursor; local `@playwright/test` optional for CI only
 
 ## [1.0.0] - 2026-06-18
 

@@ -10,7 +10,7 @@ git clone https://github.com/harishrave/magento-agent-skills.git
 ./magento-agent-skills/install.sh cursor
 ```
 
-Installs: **magento-module**, **magento-admin-ui**, **magento-testing**, **magento-audit**.
+Installs: **magento-module**, **magento-admin-ui**, **magento-testing**, **magento-audit**, **magento-browser-testing**.
 
 See [docs/install.md](docs/install.md).
 
@@ -21,6 +21,7 @@ See [docs/install.md](docs/install.md).
 | Custom modules, plugins, observers, schema, DI, APIs, CLI/cron | **magento-module** |
 | Admin grids, forms, ui_component, data providers | **magento-admin-ui** |
 | Unit/integration tests, PHPCS, PHPStan, post-upgrade regression for modules | **magento-testing** |
+| Playwright MCP browser tests, E2E, checkout/login UI validation | **magento-browser-testing** |
 | **Project audit**, version upgrade, DB optimization, code review, UI/UX report | **magento-audit** |
 
 ## RaveDigital defaults (always)

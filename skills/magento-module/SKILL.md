@@ -102,6 +102,45 @@ These items block merge or marketplace submission:
 - "Run code from CLI / on a schedule / async" → console command, cron job, or message queue
   ([references/background-jobs.md](references/background-jobs.md)); keep the entry class thin, work in a service.
 
+## Master prompts (copy-paste)
+
+Full library: [docs/example-prompts.md](../../docs/example-prompts.md#magento-module).
+
+**New module (end-to-end scaffold):**
+
+```
+We need a physical store locator for click-and-collect.
+
+Create RaveDigital_StoreLocator in app/code per module-scaffold.md
+(registration.php, module.xml, composer.json — sequence: Magento_Store).
+
+Done when setup:upgrade && setup:di:compile pass and module:status shows enabled.
+```
+
+**Plugin vs observer:**
+
+```
+When a customer saves the quote, block checkout if the selected store is outside opening hours.
+
+Recommend plugin or observer; implement with di.xml and constructor injection.
+Module: RaveDigital_StoreLocator. plugins-and-observers.md.
+```
+
+**Declarative schema + API:**
+
+```
+Add ravedigital_store_location via db_schema.xml (name, store_code, lat/lng, hours_json, status).
+Expose REST via service contract + webapi.xml. database-and-schema.md + web-apis.md.
+```
+
+**Compile failure triage:**
+
+```
+setup:di:compile fails: "Cannot instantiate interface" for LocationRepositoryInterface.
+Module: RaveDigital_StoreLocator. Fix di.xml/preferences and re-run compile.
+module-troubleshooting.md.
+```
+
 ## Final checklist
 
 Before finishing any task, run through [references/review-checklist.md](references/review-checklist.md)

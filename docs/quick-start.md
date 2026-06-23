@@ -20,13 +20,14 @@ Or one-liner:
 curl -fsSL https://raw.githubusercontent.com/harishrave/magento-agent-skills/main/install.sh | sh -s cursor
 ```
 
-Confirm all four skills exist:
+Confirm all five skills exist:
 
 ```
 .agents/skills/magento-module/SKILL.md
 .agents/skills/magento-admin-ui/SKILL.md
 .agents/skills/magento-testing/SKILL.md
 .agents/skills/magento-audit/SKILL.md
+.agents/skills/magento-browser-testing/SKILL.md
 ```
 
 **Update later:** `git pull` in the cloned skills repo (symlink installs pick up changes instantly).
@@ -41,17 +42,25 @@ Use a **new chat** after installing or updating skills.
 
 ## 4. Try a prompt
 
-**Module scaffold:**
+Copy fuller templates from [example-prompts.md](example-prompts.md). Quick starters:
 
-> Create RaveDigital_StoreLocator in app/code following module-scaffold.md — registration.php, module.xml, composer.json with sequence on Magento_Store. Run setup:upgrade and setup:di:compile.
+**Module (magento-module):**
 
-**Admin grid:**
+> We need a store locator module. Create RaveDigital_StoreLocator in app/code per module-scaffold.md. Done when setup:upgrade and setup:di:compile pass.
 
-> Add a "Visible in locator" yes/no column to the product admin grid using ui_component merge XML.
+**Admin UI (magento-admin-ui):**
 
-**Testing:**
+> Add a "Visible in locator" column to product_listing via merge XML — select filter, no core edits. extend-core-grids.md.
 
-> Add a unit test for `RaveDigital\StoreLocator\Model\StoreHours` covering disabled config and valid store code.
+**PHPUnit (magento-testing):**
+
+> Unit test StoreHours::getOpenHours() with mocked ScopeConfig. Run phpunit. unit-test-generation.md.
+
+**Browser (magento-browser-testing + Playwright MCP):**
+
+> Smoke-test storefront with Playwright MCP: homepage + customer login. Screenshot failures. playwright-mcp.md.
+
+**MCP setup:** `.cursor/mcp.json` — [install.md](install.md#playwright-mcp-cursor).
 
 ## 5. Team rollout
 

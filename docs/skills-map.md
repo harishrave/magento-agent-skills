@@ -24,6 +24,7 @@ Use this when unsure which skill applies or when onboarding new developers.
 | **magento-module** | `app/code` modules: DI, schema, plugins, APIs, layout, cron | `di.xml`, `db_schema.xml`, `setup:di:compile` |
 | **magento-admin-ui** | `ui_component`, data providers, admin grids/forms | `product_listing.xml`, `mui/index/render` |
 | **magento-testing** | PHPUnit, PHPCS, PHPStan, upgrade regression for modules | `Test/Unit`, `phpcs`, `phpstan`, upgrade test |
+| **magento-browser-testing** | Playwright E2E, UI validation, checkout, admin browser tests | `playwright`, `E2E`, `browser test`, checkout test |
 | **magento-audit** | Client audits: version, DB, code review, UI/UX reports | audit, upgrade assessment, technical review, deprecated code |
 
 ## Out of scope
@@ -43,7 +44,9 @@ Use this when unsure which skill applies or when onboarding new developers.
 | magento-audit | magento-admin-ui | Audit recommends admin UX changes |
 | magento-audit | magento-testing | Audit finds missing test coverage |
 | magento-module | magento-admin-ui | Task is mostly ui_component XML |
-| magento-module | magento-testing | Module code done; add tests |
+| magento-module | magento-testing | Module code done; add PHPUnit tests |
+| magento-module | magento-browser-testing | Custom storefront/admin UI needs E2E |
+| magento-admin-ui | magento-browser-testing | Grid/form built; validate in browser |
 | magento-admin-ui | magento-module | Grid needs new DB table or API |
 
 ## Install
