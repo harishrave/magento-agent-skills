@@ -30,7 +30,7 @@ cd /var/www/html/mage-os
 | B | Unit test scaffold | Yes (test only) | Optional | Correct `Test/Unit/` layout, mocks, no ObjectManager |
 | C | Unit test + run | Yes | Yes | `vendor/bin/phpunit` exits 0 |
 | D | Integration test | Yes | Yes (if DB configured) | `@magentoDbIsolation`, Bootstrap pattern |
-| E | Anti-patterns | No | No | PHPUnit skill refuses Playwright; browser skill refuses PHPUnit-only |
+| E | Anti-patterns | No | No | PHPUnit skill refuses browser tests; browser skill routes to Cursor browser |
 | F | Module test gate | No | Optional | Cites module-testing + static-analysis |
 | G | Upgrade testing | No | No | Cites version-upgrade-testing.md |
 
@@ -204,8 +204,8 @@ Add Cypress tests for the checkout store locator map widget.
 
 **Pass if the agent:**
 
-- Routes to **magento-browser-testing** (Playwright) — not magento-testing
-- Offers install steps if Playwright not configured
+- Routes to **magento-browser-testing** (Cursor browser) — not magento-testing
+- Does not require Playwright MCP or `npm init playwright` for interactive validation
 
 **Prompt (PHPUnit skill should not take Playwright):**
 
@@ -272,7 +272,7 @@ Run setup:di:compile and phpunit for the new tests.
 | **magento-module** | "Which skill for db_schema.xml? Do not write code." |
 | **magento-admin-ui** | "Grid has headers but no rows — which reference doc?" → `grid-data-providers.md` |
 | **magento-testing** | Tests A–G above |
-| **magento-browser-testing** | "Use Playwright MCP to test customer login" → cites playwright-mcp + storefront-flows |
+| **magento-browser-testing** | "Use Cursor browser to test customer login" → cites cursor-browser + storefront-flows |
 
 Full install verification: [install.md](install.md).
 

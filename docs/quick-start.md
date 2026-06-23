@@ -56,11 +56,11 @@ Copy fuller templates from [example-prompts.md](example-prompts.md). Quick start
 
 > Unit test StoreHours::getOpenHours() with mocked ScopeConfig. Run phpunit. unit-test-generation.md.
 
-**Browser (magento-browser-testing + Playwright MCP):**
+**Browser (magento-browser-testing):**
 
-> Smoke-test storefront with Playwright MCP: homepage + customer login. Screenshot failures. playwright-mcp.md.
+> Smoke-test storefront with Cursor browser: homepage + customer login. Screenshot failures. cursor-browser.md.
 
-**MCP setup:** `.cursor/mcp.json` — [install.md](install.md#playwright-mcp-cursor).
+No extra MCP setup — Cursor browser is built in. See [install.md](install.md#cursor-browser-testing).
 
 ## 5. Team rollout
 

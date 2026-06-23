@@ -2,7 +2,7 @@
 
 Validate custom admin modules (grids, forms) and core smoke after deploy.
 
-**Default:** use **Playwright MCP** — navigate to admin URL, log in via snapshot fields, assert grid columns load. TypeScript below is for **optional** local CI specs.
+**Default:** use **Cursor browser** — navigate to admin URL, log in via snapshot fields, assert grid columns load. TypeScript below is for **optional** local CI specs.
 
 ## Admin authentication
 

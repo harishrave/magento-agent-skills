@@ -1,6 +1,6 @@
 # Selectors, Assertions, and Page Objects
 
-Applies to **Playwright MCP** (pick elements from accessibility snapshot by role/label) and **optional** local `@playwright/test` specs.
+Applies to **Cursor browser** snapshots and **optional** local `@playwright/test` specs.
 
 ## Selector priority
 

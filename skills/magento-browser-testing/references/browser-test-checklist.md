@@ -1,14 +1,14 @@
 # Browser Test Completion Checklist
 
-## Playwright MCP (default — interactive)
+## Cursor browser (default — interactive)
 
-- [ ] Playwright MCP configured in Cursor (`.cursor/mcp.json` or user settings)
-- [ ] `npx playwright install chromium` run once if browser missing
+- [ ] Magento project open as Cursor workspace root
+- [ ] New Agent chat after skill install
 - [ ] Tested against **dev/staging** — not production
-- [ ] Storefront/admin URLs confirmed with user or `bin/magento config:show web/unsecure/base_url`
+- [ ] Base URL confirmed (`bin/magento config:show web/unsecure/base_url` or user prompt)
 - [ ] CAPTCHA/2FA disabled in test environment
-- [ ] Agent used snapshot/role/label — not brittle CSS
-- [ ] Screenshot captured on failure or for deliverable
+- [ ] Agent used snapshot + stable roles/labels — not brittle CSS
+- [ ] Screenshot on failure or for deliverable
 - [ ] Findings documented (pass/fail + steps to reproduce)
 
 ## Local Playwright (optional — CI only)
@@ -17,7 +17,6 @@
 - [ ] `@playwright/test` in `package.json`; browsers installed
 - [ ] `playwright.config.ts` with `baseURL` from env
 - [ ] `npx playwright test` passes locally
-- [ ] Secrets in `.env` (gitignored)
 
 ## Handoffs
 

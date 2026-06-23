@@ -2,14 +2,14 @@
 
 Use this **only** when the team needs a **versioned test suite** in git or **CI** (`npx playwright test` on every PR).
 
-For day-to-day validation in Cursor, use **[playwright-mcp.md](playwright-mcp.md)** instead — no Magento repo changes required.
+For day-to-day validation in Cursor, use **[cursor-browser.md](cursor-browser.md)** — no npm or extra MCP config.
 
-## When to use local vs MCP
+## When to use local vs Cursor browser
 
 | Scenario | Use |
 |---|---|
-| "Test checkout in browser now" | Playwright MCP |
-| "Validate admin grid while coding" | Playwright MCP |
+| "Test checkout in browser now" | Cursor browser |
+| "Validate admin grid while coding" | Cursor browser |
 | "Add regression tests for CI" | Local Playwright (this doc) |
 | "Don't break login on 2.4.8 upgrade" | Local Playwright |
 
@@ -75,7 +75,7 @@ npx playwright show-report
 
 Follow [selectors-and-pom.md](selectors-and-pom.md), [storefront-flows.md](storefront-flows.md), and [admin-browser-tests.md](admin-browser-tests.md) for spec examples.
 
-After MCP exploration validates a flow, **optionally** codify it as a `*.spec.ts` for CI.
+After Cursor browser exploration validates a flow, **optionally** codify it as a `*.spec.ts` for CI.
 
 ## Magento notes
 

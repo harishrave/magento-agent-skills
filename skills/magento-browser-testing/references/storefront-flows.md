@@ -1,6 +1,6 @@
 # Storefront Flows
 
-Patterns for Luma-compatible storefronts. **Default:** run via **Playwright MCP** in Cursor — use snapshot to find roles/labels; TypeScript examples below are for **optional** local CI specs.
+Patterns for Luma-compatible storefronts. **Default:** run via **Cursor browser** — use snapshot for roles/labels; TypeScript below is for **optional** local CI specs.
 
 Hyvä/React checkout may need theme-specific selectors — inspect snapshot first.
 
@@ -24,7 +24,7 @@ test('customer can register', async ({ page }) => {
 See [selectors-and-pom.md](selectors-and-pom.md) `LoginPage` example.
 
 ```
-Use Playwright MCP to test customer login per storefront-flows.md.
+Use Cursor browser tools to test customer login per storefront-flows.md.
 ```
 
 ## Optional local spec (CI)

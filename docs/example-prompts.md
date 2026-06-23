@@ -180,53 +180,53 @@ Recommend fixes — do not implement yet.
 
 ## magento-browser-testing
 
-**Default:** Playwright MCP in Cursor (no `npm init playwright` unless CI is requested).
+**Default:** Cursor built-in browser (no extra MCP config, no `npm init playwright` unless CI is requested).
 
-### Storefront smoke (MCP)
+### Storefront smoke
 
 ```
-Smoke-test the storefront with Playwright MCP:
+Smoke-test the storefront with Cursor browser tools:
 
 1. Open base URL — homepage title loads
 2. Open /customer/account/login — Sign In form visible
 3. Screenshot any failure
 
-Use playwright-mcp.md. Base URL: https://magento.test (ask if unsure).
+cursor-browser.md. Base URL: https://magento.test (ask if unsure).
 ```
 
-### Customer login (MCP)
+### Customer login
 
 ```
-End-to-end: registered customer login via Playwright MCP.
+End-to-end: registered customer login via Cursor browser.
 
 Steps: login page → fill email/password → submit → My Account dashboard visible.
 Use roles/labels from snapshot (storefront-flows.md). Screenshot on failure.
 Credentials from env or I will provide in chat.
 ```
 
-### Guest checkout (MCP)
+### Guest checkout
 
 ```
-Validate guest checkout through the shipping step using Playwright MCP.
+Validate guest checkout through the shipping step using Cursor browser.
 
 Add a simple product to cart, proceed to checkout, complete shipping address.
-No waitForTimeout — wait on visible elements. Report pass/fail with steps.
+Wait on visible elements in snapshot — no arbitrary delays. Report pass/fail with steps.
 Payment: check/money order or test method only.
 ```
 
-### Product search regression (MCP)
+### Product search regression
 
 ```
 Regression: catalog search still works after our last deploy.
 
-Playwright MCP: search "bag" from homepage → results page shows at least one product.
+Cursor browser: search "bag" from homepage → results page shows at least one product.
 Document steps and outcome. storefront-flows.md.
 ```
 
-### Admin grid validation (MCP)
+### Admin grid validation
 
 ```
-We shipped RaveDigital_StoreLocator admin grid — validate in browser with Playwright MCP.
+We shipped RaveDigital_StoreLocator admin grid — validate in Cursor browser.
 
 URL: /admin/ravedigital_storelocator/location/index
 Expect: column headers (store code, status), grid not stuck loading.
@@ -234,19 +234,19 @@ Expect: column headers (store code, status), grid not stuck loading.
 admin-browser-tests.md. Admin credentials in env / prompt.
 ```
 
-### Debug flaky browser flow (MCP)
+### Debug flaky browser flow
 
 ```
-Checkout intermittently fails at shipping method selection (Playwright MCP).
+Checkout intermittently fails at shipping method selection (Cursor browser).
 
 Reproduce, capture screenshot, identify unstable selector.
 Recommend stable role/label approach per browser-troubleshooting.md.
 ```
 
-### CI regression suite (local — explicit request only)
+### CI regression suite (explicit request only)
 
 ```
-We need committed Playwright specs for CI — not MCP-only.
+We need committed Playwright specs for CI — not browser-only validation.
 
 Add customer login regression under tests/storefront/ per playwright-setup.md.
 getByRole/getByLabel, screenshot on failure, document npx playwright test command.
@@ -316,12 +316,12 @@ Ship RaveDigital_StoreLocator end-to-end:
 Stop after each phase with a short status; use module-scaffold.md and admin-grid.md.
 ```
 
-### Module → browser validation (MCP)
+### Module → browser validation
 
 ```
 RaveDigital_StoreLocator admin grid is merged. Before PR:
 
-Use Playwright MCP to confirm grid loads, Add New opens the form, Save shows success message.
+Use Cursor browser tools to confirm grid loads, Add New opens the form, Save shows success message.
 admin-browser-tests.md. Report pass/fail with screenshots.
 ```
 
@@ -342,7 +342,7 @@ Planning 2.4.7-p7 → 2.4.8-p4:
 
 1. magento-audit: version-and-security.md upgrade blockers
 2. magento-testing: version-upgrade-testing.md on app/code
-3. magento-browser-testing: Playwright MCP smoke on homepage, login, checkout
+3. magento-browser-testing: Cursor browser smoke on homepage, login, checkout
 
 Single combined report: blockers, test deltas, browser pass/fail.
 ```
@@ -356,5 +356,5 @@ Single combined report: blockers, test deltas, browser pass/fail.
 | New module, API, schema, plugin | **magento-module** |
 | Admin grid or form | **magento-admin-ui** |
 | PHPUnit, PHPCS, PHPStan | **magento-testing** |
-| Browser / Playwright MCP | **magento-browser-testing** |
+| Browser / Cursor browser testing | **magento-browser-testing** |
 | Client audit report | **magento-audit** |

@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **docs/example-prompts.md** — richer prompts with context, done criteria, and multi-skill workflows
 - **SKILL.md master prompts** — magento-module, magento-admin-ui, magento-audit aligned with example-prompts library
-- **magento-browser-testing** — default path is Playwright MCP + Cursor; local `@playwright/test` optional for CI only
+- **magento-browser-testing** — default path is **Cursor built-in browser**; Playwright MCP optional for non-Cursor clients only
 
 ## [1.0.0] - 2026-06-18
 

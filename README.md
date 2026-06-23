@@ -16,7 +16,7 @@ passes `bin/magento setup:di:compile` and `phpcs --standard=Magento2` without re
 | [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, CLI/cron, debugging |
 | [magento-admin-ui](skills/magento-admin-ui/) | Admin grids/forms, ui_component, data providers, extending core listings |
 | [magento-testing](skills/magento-testing/) | PHPUnit tests, PHPCS/PHPStan, upgrade regression, module-scoped test runs |
-| [magento-browser-testing](skills/magento-browser-testing/) | Playwright MCP in Cursor: login, checkout, admin UI (local specs optional for CI) |
+| [magento-browser-testing](skills/magento-browser-testing/) | Cursor browser: login, checkout, admin UI (local Playwright optional for CI) |
 | [magento-audit](skills/magento-audit/) | Project audits: version/security, database, code review, UI/UX reports |
 
 ## Quick install
@@ -49,7 +49,7 @@ Skills load automatically when your prompts match their descriptions. Examples:
 - *"Ship RaveDigital_StoreLocator: schema, admin grid, unit tests — compile and phpunit must pass"*
 - *"Empty admin grid — dataProvider ravedigital_store_location_listing_data_source. Diagnose and fix"*
 - *"Post-upgrade gate: setup:di:compile + PHPCS + PHPStan on all app/code modules"*
-- *"Playwright MCP: validate guest checkout through shipping — report pass/fail with screenshots"*
+- *"Use Cursor browser to validate guest checkout through shipping — report pass/fail with screenshots"*
 - *"Client audit: version, database, app/code review, UX — audit-report-template.md, findings only"*
 
 Natural language is enough — no agent-specific slash commands required.
@@ -102,7 +102,8 @@ magento-agent-skills/
 | | `integration-testing.md` | DB isolation, fixtures, Bootstrap |
 | | `test-troubleshooting.md` | Common PHPUnit/integration failures |
 | | `test-checklist.md` | Pre-merge test checklist |
-| **magento-browser-testing** | `playwright-mcp.md` | Playwright MCP + Cursor (default) |
+| **magento-browser-testing** | `cursor-browser.md` | Cursor built-in browser (default) |
+| | `playwright-mcp-optional.md` | Playwright MCP (non-Cursor only) |
 | | `playwright-setup.md` | Optional local Playwright for CI |
 | | `selectors-and-pom.md` | getByRole, page objects, assertions |
 | | `storefront-flows.md` | Login, search, cart, checkout |

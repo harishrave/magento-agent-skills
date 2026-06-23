@@ -1,15 +1,15 @@
 # Browser Test Troubleshooting
 
-## Playwright MCP (Cursor — default)
+## Cursor browser (default)
 
 | Symptom | Fix |
 |---|---|
-| MCP server missing | Add [playwright-mcp.md](playwright-mcp.md) `.cursor/mcp.json`; restart Cursor |
-| 0 tools / red status | Use `"args": ["-y", "@playwright/mcp@latest"]`; Node 18+ |
-| Browser not found | `npx playwright install chromium` |
-| Agent writes spec files instead of using MCP | User wants CI — see local section below; else remind: use Playwright MCP |
-| Wrong site loaded | Open **Magento project** in Cursor; confirm base URL with user |
-| Admin login fails | CAPTCHA off; correct `/admin` URL; credentials in prompt |
+| Browser tools not available | Enable browser in Cursor; start **new Agent chat** |
+| Wrong site / no Magento context | Open **Magento project root** in Cursor (not skills repo) |
+| Snapshot empty or stale | Re-navigate; `browser_lock` before long interactions |
+| Login blocked | Disable CAPTCHA; verify admin URL and credentials |
+| Agent writes spec files | User wants CI — [playwright-setup.md](playwright-setup.md); else use Cursor browser |
+| Element not in snapshot | Add `data-testid` in module; try label/role from fresh snapshot |
 
 ## Local Playwright (CI only)
 
@@ -18,60 +18,30 @@
 | `playwright: not found` | [playwright-setup.md](playwright-setup.md) |
 | Browser binaries missing | `npx playwright install chromium` |
 
-## Flaky tests
+## Flaky interactions (both)
 
 | Symptom | Fix |
 |---|---|
-| Element not found | Replace sleep with `expect(locator).toBeVisible()` |
-| Stale element | Re-query after navigation: `page.getByRole(...)` |
-| Race on AJAX grid | `await expect(loadingMask).toBeHidden()` |
-| Parallel collisions | Unique customer emails `test+${Date.now()}@example.com`; `workers: 1` in CI |
+| Race on AJAX grid | Wait for loading mask hidden in snapshot before asserting rows |
+| Stale session (admin) | Re-login; clear cookies for test env |
+| Wrong base URL | `bin/magento config:show web/unsecure/base_url` |
 
-## Debug failing test
+## Debug local specs
 
 ```bash
 npx playwright test tests/checkout.spec.ts --debug
-npx playwright test tests/checkout.spec.ts --trace on
-npx playwright show-report
 npx playwright show-trace test-results/.../trace.zip
 ```
 
-Add in test temporarily:
-
-```typescript
-await page.pause(); // step through in inspector
-await page.screenshot({ path: 'debug.png', fullPage: true });
-```
-
-## Wrong base URL
-
-```bash
-PLAYWRIGHT_BASE_URL=https://magento.test npx playwright test
-```
-
-Verify `bin/magento config:show web/unsecure/base_url` matches.
-
-## Selector broke after theme change
-
-1. `npx playwright codegen $PLAYWRIGHT_BASE_URL`
-2. Refactor recording to `getByRole` / `getByLabel`
-3. Add `data-testid` in custom module templates for stable hooks
-
-## Admin tests redirect to login
-
-- Re-run `auth.setup.ts`
-- Delete stale `playwright/.auth/admin.json`
-- Check session cookie domain matches `baseURL`
-
-## Checkout payment failures
-
-Use check/money order or sandbox payment in `env.php` / admin config — never real cards in tests.
-
-## PHPUnit vs Playwright
+## PHPUnit vs browser
 
 | Layer | Tool | Skill |
 |---|---|---|
 | PHP unit/integration | PHPUnit | **magento-testing** |
-| Browser E2E (interactive) | Playwright MCP in Cursor | **magento-browser-testing** |
-| Browser E2E (CI specs) | Local `@playwright/test` | **magento-browser-testing** → playwright-setup.md |
-| Adobe native functional | MFTF | Only if user explicitly requests MFTF |
+| Browser (interactive, Cursor) | Cursor browser | **magento-browser-testing** |
+| Browser (CI specs) | Local Playwright | **magento-browser-testing** → playwright-setup.md |
+| Adobe MFTF | MFTF | Only if user explicitly requests |
+
+## Optional Playwright MCP
+
+Cursor-only teams should **not** add Playwright MCP — see [playwright-mcp-optional.md](playwright-mcp-optional.md).

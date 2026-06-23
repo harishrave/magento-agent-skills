@@ -24,7 +24,7 @@ Use this when unsure which skill applies or when onboarding new developers.
 | **magento-module** | `app/code` modules: DI, schema, plugins, APIs, layout, cron | `di.xml`, `db_schema.xml`, `setup:di:compile` |
 | **magento-admin-ui** | `ui_component`, data providers, admin grids/forms | `product_listing.xml`, `mui/index/render` |
 | **magento-testing** | PHPUnit, PHPCS, PHPStan, upgrade regression for modules | `Test/Unit`, `phpcs`, `phpstan`, upgrade test |
-| **magento-browser-testing** | Playwright E2E, UI validation, checkout, admin browser tests | `playwright`, `E2E`, `browser test`, checkout test |
+| **magento-browser-testing** | Cursor browser, UI validation, checkout, admin checks | `browser test`, `validate UI`, checkout test |
 | **magento-audit** | Client audits: version, DB, code review, UI/UX reports | audit, upgrade assessment, technical review, deprecated code |
 
 ## Out of scope

@@ -138,38 +138,23 @@ See [testing-skills.md](testing-skills.md) for full test plans.
 
 ---
 
-## Playwright MCP (Cursor)
+## Cursor browser testing
 
-Browser testing uses **Playwright MCP** — not `npm init playwright` in the Magento repo by default.
+Browser testing uses **Cursor's built-in browser tools** — no `npm init playwright` and **no Playwright MCP** required for Cursor-only teams.
 
-Add to **Magento project** `.cursor/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "playwright": {
-      "command": "npx",
-      "args": ["-y", "@playwright/mcp@latest"]
-    }
-  }
-}
-```
-
-One-time per machine:
-
-```bash
-npx playwright install chromium
-```
-
-Restart Cursor, then in a new Agent chat:
+1. Open your **Magento project** in Cursor (not the skills repo)
+2. Install skills: `./install.sh --agents cursor`
+3. Start a **new Agent chat**
 
 ```
-Use Playwright MCP to open the storefront homepage and confirm it loads.
+Use Cursor browser tools to smoke-test the storefront: homepage loads, then customer login shows Sign In.
+Screenshot any failure. Base URL: https://magento.test
 ```
 
-Full guide: `skills/magento-browser-testing/references/playwright-mcp.md` (after skills install).
+Full guide: `skills/magento-browser-testing/references/cursor-browser.md`.
 
-For **CI regression specs** only, see `playwright-setup.md` in the same skill.
+**Optional:** Playwright MCP only for non-Cursor clients — `playwright-mcp-optional.md`.  
+**CI regression:** local `@playwright/test` — `playwright-setup.md`.
 
 ---
 
