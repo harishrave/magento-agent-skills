@@ -6,21 +6,23 @@ description: >-
   declarative schema and custom tables, product/EAV attributes, dependency injection,
   checkout/cart/totals and custom order or shipping fee logic, admin configuration
   (system.xml/ACL), admin grids and ui_components, layout XML and view models, upgrading or
-  migrating custom modules (incl. to Mage-OS) and their composer.json constraints, and
-  debugging playbooks for setup:di:compile failures, layout not applying, and observers/plugins
+  migrating custom modules (incl. to Mage-OS) and their composer.json constraints,
+  PHPCS (Magento2 standard) and PHPStan static analysis on app/code modules, and debugging
+  playbooks for setup:di:compile failures, layout not applying, and observers/plugins
   that don't fire. Use this skill whenever the user is writing, modifying, or debugging custom
   Magento, Mage-OS, or Adobe Commerce code — creating or extending a module/extension,
   intercepting core behavior, adding database tables or attributes, building admin settings or
-  grids, frontend blocks or templates, or fixing errors from bin/magento commands — even if
-  they don't say "module" explicitly. Strong triggers: "how do I override X in Magento", "my
-  Magento layout/plugin/observer isn't working", "do I use an observer or a plugin", or
-  anything touching app/code, di.xml, events.xml, db_schema.xml, or layout XML. For deep
-  ui_component grid/form work (columns, filters, data providers, mass actions), prefer the
-  magento-admin-ui skill. For automated tests use magento-testing. For project audits, version/security
-  reviews, database optimization recommendations, code review reports, or UI/UX suggestions use
-  magento-audit. Do NOT trigger for operational admin tasks (creating coupons, importing product CSVs,
-  session/login settings), Magento hosting/sizing questions, content/SEO copy, or non-Magento
-  platforms like Shopify or WooCommerce.
+  grids, frontend blocks or templates, running phpcs or phpstan on a module, or fixing errors
+  from bin/magento commands — even if they don't say "module" explicitly. Strong triggers:
+  "how do I override X in Magento", "my Magento layout/plugin/observer isn't working",
+  "do I use an observer or a plugin", or anything touching app/code, di.xml, events.xml,
+  db_schema.xml, or layout XML. For deep ui_component grid/form work (columns, filters, data
+  providers, mass actions), prefer the magento-admin-ui skill. For browser E2E use
+  magento-browser-testing. For project audits, version/security reviews, database optimization
+  recommendations, code review reports, or UI/UX suggestions use magento-audit. Do NOT trigger
+  for operational admin tasks (creating coupons, importing product CSVs, session/login settings),
+  Magento hosting/sizing questions, content/SEO copy, or non-Magento platforms like Shopify
+  or WooCommerce.
 ---
 
 # Magento 2 / Mage-OS Module Development
@@ -60,7 +62,7 @@ These items block merge or marketplace submission:
    | REST / GraphQL / web APIs | [references/web-apis.md](references/web-apis.md) |
    | CLI commands, cron jobs, message queues | [references/background-jobs.md](references/background-jobs.md) |
    | Composer.json / package metadata | [references/composer-packaging.md](references/composer-packaging.md) |
-   | Automated tests for module code | **magento-testing** skill |
+   | PHPCS + PHPStan on a module | [references/static-analysis.md](references/static-analysis.md) |
    | Errors, "not working", compile failures | [references/module-troubleshooting.md](references/module-troubleshooting.md) |
 
 2. **For a new module, follow the scaffold workflow** in [references/module-scaffold.md](references/module-scaffold.md):
@@ -76,15 +78,16 @@ These items block merge or marketplace submission:
 
    ```bash
    bin/magento module:enable Vendor_Module
-   bin/magento setup:upgrade            # registers module, applies db_schema
-   bin/magento setup:di:compile         # catches DI mistakes; must pass
+   bin/magento setup:upgrade
+   bin/magento setup:di:compile         # must pass
    vendor/bin/phpcs --standard=Magento2 app/code/Vendor/Module   # if installed
+   vendor/bin/phpstan analyse app/code/Vendor/Module -c phpstan.neon 2>/dev/null || true
    bin/magento cache:flush
    ```
 
-   If `setup:di:compile` fails, go to [references/module-troubleshooting.md](references/module-troubleshooting.md) — the error messages are
-   cryptic but mechanical to resolve. Do not hand unverified code back to the user when a
-   Magento installation is available to compile against.
+   See [references/static-analysis.md](references/static-analysis.md) for PHPCS/PHPStan commands and report format.
+
+   If `setup:di:compile` fails, go to [references/module-troubleshooting.md](references/module-troubleshooting.md).
 
 ## Decision shortcuts
 
@@ -92,15 +95,13 @@ These items block merge or marketplace submission:
 - "React to something happening (order placed, product saved)" → **observer**, or a plugin
   on the service contract if you need to alter the result.
 - "Replace an entire class implementation" → almost never; re-read
-  [references/plugins-and-observers.md](references/plugins-and-observers.md) — there is usually
-  a plugin- or di-argument-based alternative that composes better.
+  [references/plugins-and-observers.md](references/plugins-and-observers.md).
 - "Add a column to a core table" → don't; use an extension attribute or a satellite table
   ([references/database-and-schema.md](references/database-and-schema.md)).
 - "Template needs data" → view model ([references/storefront-layout.md](references/storefront-layout.md)).
-- "Expose data to REST/GraphQL/headless" → service contract (`Api/` interface) first, then
-  webapi.xml or schema.graphqls ([references/web-apis.md](references/web-apis.md)) — never expose a Model.
-- "Run code from CLI / on a schedule / async" → console command, cron job, or message queue
-  ([references/background-jobs.md](references/background-jobs.md)); keep the entry class thin, work in a service.
+- "Expose data to REST/GraphQL/headless" → service contract (`Api/` interface) first
+  ([references/web-apis.md](references/web-apis.md)).
+- "Run phpcs/phpstan on module" → [static-analysis.md](references/static-analysis.md).
 
 ## Master prompts (copy-paste)
 
@@ -117,20 +118,11 @@ Create RaveDigital_StoreLocator in app/code per module-scaffold.md
 Done when setup:upgrade && setup:di:compile pass and module:status shows enabled.
 ```
 
-**Plugin vs observer:**
+**Static analysis gate:**
 
 ```
-When a customer saves the quote, block checkout if the selected store is outside opening hours.
-
-Recommend plugin or observer; implement with di.xml and constructor injection.
-Module: RaveDigital_StoreLocator. plugins-and-observers.md.
-```
-
-**Declarative schema + API:**
-
-```
-Add ravedigital_store_location via db_schema.xml (name, store_code, lat/lng, hours_json, status).
-Expose REST via service contract + webapi.xml. database-and-schema.md + web-apis.md.
+Run PHPCS (Magento2) and PHPStan on app/code/RaveDigital/StoreLocator.
+Group findings by severity per static-analysis.md. Recommend fixes — do not implement yet.
 ```
 
 **Compile failure triage:**
@@ -144,8 +136,7 @@ module-troubleshooting.md.
 ## Final checklist
 
 Before finishing any task, run through [references/review-checklist.md](references/review-checklist.md)
-— it covers cache tags, ACL coverage, i18n (`__()` + `i18n/en_US.csv`), escaping, and the
-composer/module.xml consistency checks that reviewers look for.
+and [references/static-analysis.md](references/static-analysis.md) when PHPCS/PHPStan are available.
 
 ## Mage-OS notes
 
@@ -155,9 +146,7 @@ Mage-OS packages provide/replace them) rather than pinning `magento/product-comm
 
 ## Agent compatibility
 
-Open `SKILL.md` format — works with Cursor, Claude Code, Codex, Windsurf, and other agents.
-Install from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills) via
-[Vercel Skills CLI](https://github.com/vercel-labs/skills) or copy into your agent's skills directory.
+Install from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills).
 See [docs/install.md](../../docs/install.md).
 
 ## Pairing with live data (optional)

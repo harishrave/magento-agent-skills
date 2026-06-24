@@ -82,8 +82,7 @@ git push origin v1.0.0
 
 ## Testing skills
 
-See [testing-skills.md](testing-skills.md) for a shareable test plan (especially **magento-testing**:
-skill routing, unit test scaffold, phpunit commands, integration tests, negative cases).
+See [testing-skills.md](testing-skills.md) for a shareable verification plan.
 
 Quick smoke test:
 

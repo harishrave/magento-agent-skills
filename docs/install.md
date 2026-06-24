@@ -1,7 +1,7 @@
 # Installation Guide
 
 Install **all** RaveDigital Magento agent skills in one step — `magento-module`, `magento-admin-ui`,
-`magento-testing`, `magento-audit`, and `magento-browser-testing`.
+`magento-audit`, and `magento-browser-testing`.
 
 > **Repository:** [github.com/harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills)
 
@@ -83,7 +83,7 @@ your-magento-project/
     └── ...
 ```
 
-All five skills are always installed together.
+All four skills are always installed together.
 
 ### Update skills
 
@@ -113,7 +113,7 @@ git clone https://github.com/harishrave/magento-agent-skills.git
 mkdir -p .cursor/skills
 cp -r magento-agent-skills/skills/magento-module .cursor/skills/
 cp -r magento-agent-skills/skills/magento-admin-ui .cursor/skills/
-cp -r magento-agent-skills/skills/magento-testing .cursor/skills/
+cp -r magento-agent-skills/skills/magento-audit .cursor/skills/
 cp -r magento-agent-skills/skills/magento-browser-testing .cursor/skills/
 ```
 
@@ -124,7 +124,6 @@ cp -r magento-agent-skills/skills/magento-browser-testing .cursor/skills/
 ```bash
 ls .cursor/skills/magento-module/SKILL.md
 ls .cursor/skills/magento-admin-ui/SKILL.md
-ls .cursor/skills/magento-testing/SKILL.md
 ls .cursor/skills/magento-audit/SKILL.md
 ls .cursor/skills/magento-browser-testing/SKILL.md
 ```
@@ -153,7 +152,7 @@ Screenshot any failure. Base URL: https://magento.test
 
 Full guide: `skills/magento-browser-testing/references/cursor-browser.md`.
 
-**Optional:** Playwright MCP only for non-Cursor clients — `playwright-mcp-optional.md`.  
+**Optional:** Playwright MCP when user explicitly asks for Playwright or generated specs — `playwright-mcp-optional.md`.  
 **CI regression:** local `@playwright/test` — `playwright-setup.md`.
 
 ---
@@ -173,7 +172,7 @@ RaveDigital skills (backend) and [Hyvä AI Tools](https://github.com/hyva-themes
 
 | Problem | Solution |
 |---|---|
-| Agent ignores skills | New Agent chat; confirm all five `SKILL.md` files exist under `.cursor/skills/` |
+| Agent ignores skills | New Agent chat; confirm all four `SKILL.md` files exist under `.cursor/skills/` |
 | One-liner left broken symlinks (red paths, no `SKILL.md`) | Remove broken links: `rm -rf .cursor/skills/magento-*` then re-run the one-liner (script now **copies** files for remote install) |
 | Symlinks broken on Windows | Re-run with `--copy` |
 | Wrong directory | Use `--agents` for `.agents/skills/` |

@@ -37,11 +37,12 @@ npx playwright show-trace test-results/.../trace.zip
 
 | Layer | Tool | Skill |
 |---|---|---|
-| PHP unit/integration | PHPUnit | **magento-testing** |
+| PHP / static analysis | PHPCS/PHPStan | **magento-module** |
 | Browser (interactive, Cursor) | Cursor browser | **magento-browser-testing** |
 | Browser (CI specs) | Local Playwright | **magento-browser-testing** → playwright-setup.md |
 | Adobe MFTF | MFTF | Only if user explicitly requests |
 
 ## Optional Playwright MCP
 
-Cursor-only teams should **not** add Playwright MCP — see [playwright-mcp-optional.md](playwright-mcp-optional.md).
+When the user **explicitly asks for Playwright** or generated `*.spec.ts` files — see [playwright-mcp-optional.md](playwright-mcp-optional.md).  
+Cursor-only teams should **not** add Playwright MCP for general smoke/UI validation.

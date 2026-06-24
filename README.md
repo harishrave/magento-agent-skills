@@ -13,9 +13,8 @@ passes `bin/magento setup:di:compile` and `phpcs --standard=Magento2` without re
 
 | Skill | Purpose |
 |---|---|
-| [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, CLI/cron, debugging |
+| [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, PHPCS, PHPStan |
 | [magento-admin-ui](skills/magento-admin-ui/) | Admin grids/forms, ui_component, data providers, extending core listings |
-| [magento-testing](skills/magento-testing/) | PHPUnit tests, PHPCS/PHPStan, upgrade regression, module-scoped test runs |
 | [magento-browser-testing](skills/magento-browser-testing/) | Cursor browser: login, checkout, admin UI (local Playwright optional for CI) |
 | [magento-audit](skills/magento-audit/) | Project audits: version/security, database, code review, UI/UX reports |
 
@@ -46,7 +45,7 @@ See [docs/quick-start.md](docs/quick-start.md), [docs/example-prompts.md](docs/e
 
 Skills load automatically when your prompts match their descriptions. Examples:
 
-- *"Ship RaveDigital_StoreLocator: schema, admin grid, unit tests — compile and phpunit must pass"*
+- *"Ship RaveDigital_StoreLocator: schema, admin grid, PHPCS/PHPStan — compile must pass"*
 - *"Empty admin grid — dataProvider ravedigital_store_location_listing_data_source. Diagnose and fix"*
 - *"Post-upgrade gate: setup:di:compile + PHPCS + PHPStan on all app/code modules"*
 - *"Use Cursor browser to validate guest checkout through shipping — report pass/fail with screenshots"*
@@ -61,9 +60,8 @@ magento-agent-skills/
 ├── install.sh                     # Install all skills (recommended)
 ├── magento-skills.json            # Skill manifest
 ├── skills/
-│   ├── magento-module/references/     # Module development guides
+│   ├── magento-module/references/     # Module development + static analysis
 │   ├── magento-admin-ui/references/   # Admin ui_component guides
-│   ├── magento-testing/references/    # PHPUnit unit & integration tests
 │   ├── magento-browser-testing/references/  # Playwright E2E & UI validation
 │   └── magento-audit/references/      # Project audit pillars & report template
 ├── docs/
@@ -93,17 +91,10 @@ magento-agent-skills/
 | | `background-jobs.md` | CLI, cron, message queues |
 | | `module-troubleshooting.md` | Compile, layout, plugin debug playbooks |
 | | `review-checklist.md` | Pre-merge checklist |
-| | `composer-packaging.md` | composer.json, versioning, Mage-OS deps |
-| **magento-testing** | `unit-test-generation.md` | Write unit tests for a specific module |
-| | `module-testing.md` | Run all tests for Vendor_Module |
-| | `version-upgrade-testing.md` | Regression test after patch upgrade |
 | | `static-analysis.md` | PHPCS + PHPStan on app/code module |
-| | `unit-testing.md` | Mocked PHPUnit unit tests |
-| | `integration-testing.md` | DB isolation, fixtures, Bootstrap |
-| | `test-troubleshooting.md` | Common PHPUnit/integration failures |
-| | `test-checklist.md` | Pre-merge test checklist |
+| | `composer-packaging.md` | composer.json, versioning, Mage-OS deps |
 | **magento-browser-testing** | `cursor-browser.md` | Cursor built-in browser (default) |
-| | `playwright-mcp-optional.md` | Playwright MCP (non-Cursor only) |
+| | `playwright-mcp-optional.md` | Playwright MCP (explicit Playwright / spec generation) |
 | | `playwright-setup.md` | Optional local Playwright for CI |
 | | `selectors-and-pom.md` | getByRole, page objects, assertions |
 | | `storefront-flows.md` | Login, search, cart, checkout |

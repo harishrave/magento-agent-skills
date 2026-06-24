@@ -108,7 +108,7 @@ Client-ready structure for RaveDigital Magento project audits. Copy and fill —
 - **Commands run:** [list]
 - **Files sampled:** [paths]
 - **Out of scope:** [pen test, load test, full vendor review, etc.]
-- **Remediation:** Implementation can be executed using RaveDigital development skills (`magento-module`, `magento-admin-ui`, `magento-testing`).
+- **Remediation:** Implementation can be executed using RaveDigital development skills (`magento-module`, `magento-admin-ui`, `magento-browser-testing`).
 
 ---
 

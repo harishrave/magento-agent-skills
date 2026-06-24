@@ -106,7 +106,7 @@ confirm column headers and grid finishes loading. admin-browser-tests.md
 |---|---|
 | Test in browser while coding (Cursor) | **Cursor browser** (this doc) |
 | CI pipeline on every PR | [playwright-setup.md](playwright-setup.md) |
-| Non-Cursor agent with MCP | [playwright-mcp-optional.md](playwright-mcp-optional.md) |
+| User asks for **Playwright** / generated specs | [playwright-mcp-optional.md](playwright-mcp-optional.md) |
 
 ## Troubleshooting
 
@@ -125,4 +125,4 @@ See [browser-troubleshooting.md](browser-troubleshooting.md).
 |---|---|
 | PHP / module bug | **magento-module** |
 | Grid / form XML | **magento-admin-ui** |
-| Missing PHPUnit | **magento-testing** |
+| Code quality / PHPCS | **magento-module** |

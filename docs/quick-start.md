@@ -20,17 +20,14 @@ Or one-liner:
 curl -fsSL https://raw.githubusercontent.com/harishrave/magento-agent-skills/main/install.sh | sh -s cursor
 ```
 
-Confirm all five skills exist:
+Confirm all four skills exist:
 
 ```
 .agents/skills/magento-module/SKILL.md
 .agents/skills/magento-admin-ui/SKILL.md
-.agents/skills/magento-testing/SKILL.md
 .agents/skills/magento-audit/SKILL.md
 .agents/skills/magento-browser-testing/SKILL.md
 ```
-
-**Update later:** `git pull` in the cloned skills repo (symlink installs pick up changes instantly).
 
 ## 2. Open the Magento codebase in Cursor
 
@@ -48,19 +45,17 @@ Copy fuller templates from [example-prompts.md](example-prompts.md). Quick start
 
 > We need a store locator module. Create RaveDigital_StoreLocator in app/code per module-scaffold.md. Done when setup:upgrade and setup:di:compile pass.
 
+**Static analysis (magento-module):**
+
+> Run PHPCS and PHPStan on app/code/RaveDigital/StoreLocator. static-analysis.md.
+
 **Admin UI (magento-admin-ui):**
 
 > Add a "Visible in locator" column to product_listing via merge XML — select filter, no core edits. extend-core-grids.md.
 
-**PHPUnit (magento-testing):**
-
-> Unit test StoreHours::getOpenHours() with mocked ScopeConfig. Run phpunit. unit-test-generation.md.
-
 **Browser (magento-browser-testing):**
 
 > Smoke-test storefront with Cursor browser: homepage + customer login. Screenshot failures. cursor-browser.md.
-
-No extra MCP setup — Cursor browser is built in. See [install.md](install.md#cursor-browser-testing).
 
 ## 5. Team rollout
 

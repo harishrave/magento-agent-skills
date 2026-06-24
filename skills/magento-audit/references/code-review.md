@@ -76,7 +76,7 @@ For `vendor/*` modules (Amasty, Mageplaza, etc.):
 |---|---|
 | Refactor module / schema / DI | **magento-module** |
 | Admin grid UX after backend fix | **magento-admin-ui** |
-| Add tests for critical paths | **magento-testing** |
+| PHPCS/PHPStan on module after fix | **magento-module** (`static-analysis.md`) |
 
 ## Out of scope
 

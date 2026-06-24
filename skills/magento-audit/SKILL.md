@@ -11,7 +11,7 @@ description: >-
   even if they do not say "audit" explicitly. Strong triggers: audit report, before/after upgrade,
   technical debt review, deprecated code, patch level, performance baseline, admin usability,
   checkout UX. For implementing fixes after the audit use magento-module, magento-admin-ui, or
-  magento-testing. Do NOT trigger for writing new features from scratch without an audit/review
+  magento-browser-testing. Do NOT trigger for writing new features from scratch without an audit/review
   framing, or for non-Magento platforms.
 ---
 
@@ -52,7 +52,7 @@ findings report with recommendations** — not implementation unless the user ex
 5. **Do not implement fixes** unless asked — hand off remediation:
    - Code/schema/DI fixes → **magento-module**
    - Admin grid/form UX → **magento-admin-ui**
-   - Test gaps → **magento-testing**
+   - Static analysis gaps → **magento-module** (`static-analysis.md`)
 
 ## RaveDigital audit standards
 

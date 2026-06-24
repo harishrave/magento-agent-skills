@@ -74,6 +74,22 @@ Module: RaveDigital_StoreLocator. Trace di.xml preferences and interfaces;
 fix and re-run compile. Use module-troubleshooting.md.
 ```
 
+### Static analysis (PHPCS + PHPStan)
+
+```
+Run PHPCS (Magento2) and PHPStan on app/code/RaveDigital/StoreLocator.
+
+Group findings by severity per static-analysis.md.
+Recommend fixes — do not implement yet.
+```
+
+### Post-upgrade static analysis
+
+```
+We upgraded 2.4.7-p7 → 2.4.8-p4. Run setup:di:compile, then PHPCS and PHPStan
+on all app/code modules per static-analysis.md. Report pass/fail summary.
+```
+
 ---
 
 ## magento-admin-ui
@@ -111,69 +127,6 @@ dataProvider: ravedigital_store_location_listing_data_source
 
 Diagnose using admin-ui-troubleshooting.md and grid-data-providers.md.
 Fix di.xml / collection / primaryFieldName — verify rows load.
-```
-
----
-
-## magento-testing
-
-### Unit test (single class)
-
-```
-Write a PHPUnit unit test for RaveDigital\StoreLocator\Model\StoreHours::getOpenHours().
-
-Mock ScopeConfig; cover enabled/disabled and valid store code paths.
-Test/Unit layout per unit-test-generation.md. Run vendor/bin/phpunit for this test.
-```
-
-### Integration test (repository)
-
-```
-Add an integration test for LocationRepositoryInterface: save a StoreLocation, load by ID,
-assert store_code and status. Use @magentoDbIsolation per integration-testing.md.
-Module: RaveDigital_StoreLocator.
-```
-
-### Module quality gate
-
-```
-Run the full module-testing.md gate for RaveDigital_StoreLocator:
-
-1. Unit tests (Test/Unit)
-2. PHPCS --standard=Magento2
-3. PHPStan on app/code/RaveDigital/StoreLocator
-
-Report pass/fail table with command output summary. Do not fix code unless a test fails.
-```
-
-### Post-upgrade regression
-
-```
-We upgraded 2.4.7-p7 → 2.4.8-p4. Run version-upgrade-testing.md for all app/code modules:
-
-setup:di:compile, unit tests per module, PHPCS/PHPStan where configured.
-Compare to pre-upgrade baseline if documented; list any new failures.
-```
-
-### Generate unit tests for a module
-
-```
-Generate PHPUnit unit tests for RaveDigital_StoreLocator per unit-test-generation.md.
-
-Priority classes:
-- Model/StoreHours
-- Model/Validator/CoordinateValidator
-
-Mock all dependencies; no ObjectManager. Run phpunit when complete.
-```
-
-### Static analysis only
-
-```
-Run PHPCS (Magento2) and PHPStan on app/code/RaveDigital/StoreLocator.
-
-Group findings by severity per static-analysis.md.
-Recommend fixes — do not implement yet.
 ```
 
 ---
@@ -252,6 +205,26 @@ Add customer login regression under tests/storefront/ per playwright-setup.md.
 getByRole/getByLabel, screenshot on failure, document npx playwright test command.
 ```
 
+### Playwright MCP — explore and generate specs (optional)
+
+```
+Use Playwright MCP for E2E automation on https://magento.test:
+
+1. Check Playwright MCP is configured; if not, show .cursor/mcp.json setup
+2. Explore guest checkout through shipping with Playwright MCP
+3. Generate tests/storefront/checkout.spec.ts from observed steps
+4. getByRole/getByLabel/getByTestId only; screenshot on failure
+
+playwright-mcp-optional.md + storefront-flows.md
+```
+
+### Playwright — B2B company login and RFQ (optional)
+
+```
+Adobe Commerce B2B: use Playwright MCP to validate company user login and request a quote.
+Generate Playwright specs if flow passes. b2b-flows.md + playwright-mcp-optional.md
+```
+
 ---
 
 ## magento-audit
@@ -303,15 +276,15 @@ Prioritized recommendations per ui-ux-review.md — no implementation yet.
 
 ## Multi-skill workflows
 
-### Module → admin UI → PHPUnit (feature complete)
+### Module → admin UI → quality gate (feature complete)
 
 ```
 Ship RaveDigital_StoreLocator end-to-end:
 
 1. Module scaffold + db_schema (magento-module)
 2. Admin location grid + edit form (magento-admin-ui)
-3. Unit tests for StoreHours + CoordinateValidator (magento-testing)
-4. setup:di:compile + phpunit for new tests
+3. PHPCS + PHPStan on module (magento-module → static-analysis.md)
+4. setup:di:compile must pass
 
 Stop after each phase with a short status; use module-scaffold.md and admin-grid.md.
 ```
@@ -330,7 +303,7 @@ admin-browser-tests.md. Report pass/fail with screenshots.
 ```
 Phase 1 — Run magento-audit (full pillars, audit-report-template.md).
 Phase 2 — Implement top 3 Critical/High code findings only (magento-module / magento-admin-ui).
-Phase 3 — Re-run PHPCS on touched modules (magento-testing).
+Phase 3 — Re-run PHPCS on touched modules (magento-module → static-analysis.md).
 
 Do not start Phase 2 until I approve the audit summary.
 ```
@@ -341,10 +314,10 @@ Do not start Phase 2 until I approve the audit summary.
 Planning 2.4.7-p7 → 2.4.8-p4:
 
 1. magento-audit: version-and-security.md upgrade blockers
-2. magento-testing: version-upgrade-testing.md on app/code
+2. magento-module: setup:di:compile + PHPCS/PHPStan on app/code (static-analysis.md)
 3. magento-browser-testing: Cursor browser smoke on homepage, login, checkout
 
-Single combined report: blockers, test deltas, browser pass/fail.
+Single combined report: blockers, static analysis summary, browser pass/fail.
 ```
 
 ---
@@ -355,6 +328,6 @@ Single combined report: blockers, test deltas, browser pass/fail.
 |---|---|
 | New module, API, schema, plugin | **magento-module** |
 | Admin grid or form | **magento-admin-ui** |
-| PHPUnit, PHPCS, PHPStan | **magento-testing** |
+| PHPCS, PHPStan, compile gate | **magento-module** |
 | Browser / Cursor browser testing | **magento-browser-testing** |
 | Client audit report | **magento-audit** |

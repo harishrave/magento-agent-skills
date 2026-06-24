@@ -11,6 +11,14 @@
 - [ ] Screenshot on failure or for deliverable
 - [ ] Findings documented (pass/fail + steps to reproduce)
 
+## Optional Playwright MCP (explicit Playwright request)
+
+- [ ] User asked for Playwright / E2E automation / generated specs
+- [ ] `.cursor/mcp.json` has `playwright` server or setup instructions given
+- [ ] `npx playwright install chromium` run if browsers missing
+- [ ] Exploration via Playwright MCP; specs use getByRole/getByLabel/getByTestId
+- [ ] Screenshots on failure
+
 ## Local Playwright (optional — CI only)
 
 - [ ] User explicitly requested CI/regression suite
@@ -22,4 +30,4 @@
 
 - [ ] PHP bugs → **magento-module**
 - [ ] Grid/form bugs → **magento-admin-ui**
-- [ ] Missing PHPUnit → **magento-testing**
+- [ ] Code quality → **magento-module** (`static-analysis.md`)

@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **docs/example-prompts.md** — richer prompts with context, done criteria, and multi-skill workflows
 - **SKILL.md master prompts** — magento-module, magento-admin-ui, magento-audit aligned with example-prompts library
-- **magento-browser-testing** — default path is **Cursor built-in browser**; Playwright MCP optional for non-Cursor clients only
+- **magento-browser-testing** — Cursor browser default; optional Playwright MCP when user asks for Playwright or generated specs
+- **Removed magento-testing** — `static-analysis.md` moved to **magento-module**; PHPUnit workflows removed (4 skills total)
 
 ## [1.0.0] - 2026-06-18
 
