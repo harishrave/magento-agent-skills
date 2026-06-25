@@ -124,5 +124,5 @@ See [browser-troubleshooting.md](browser-troubleshooting.md).
 | Finding | Skill |
 |---|---|
 | PHP / module bug | **magento-module** |
-| Grid / form XML | **magento-admin-ui** |
+| Grid / form XML | **magento-module** |
 | Code quality / PHPCS | **magento-module** |

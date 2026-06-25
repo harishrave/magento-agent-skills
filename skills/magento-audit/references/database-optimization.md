@@ -36,15 +36,28 @@ For each `app/code/*/etc/db_schema.xml`:
 
 Cross-reference **magento-module** [database-and-schema.md](../../magento-module/references/database-and-schema.md) for fix patterns.
 
-## Query optimization (sampling)
+## Common table growth
 
-When slow query log or APM data is available:
+| Table | Symptom | Recommendation |
+|---|---|---|
+| `quote` / `quote_item` | Abandoned carts | `sales_clean_quotes`; retention policy |
+| `sales_*` | Historical orders | Archival strategy |
+| `customer_*` / `customer_entity` | GDPR / inactive | Anonymization policy |
+| `catalogsearch_*` | MySQL search bloat | OpenSearch migration |
+| `cron_schedule` | Backlog / missed jobs | Fix cron; clean old rows |
+| EAV attribute sprawl | Too many attributes | Audit unused attributes |
 
-1. Identify top 5 queries by total time
-2. Note missing indexes (`EXPLAIN` on staging copy)
-3. Flag N+1 patterns in custom repositories (loops calling `load()`)
+## EAV issues
 
-Without slow query data, state: *"Recommend enabling slow query log on staging and re-auditing."*
+- High attribute count per entity → admin slowdown
+- Unused attributes in `eav_attribute`
+- Flat catalog legacy (2.4.x mostly EAV) — note if `catalog_product_flat` enabled
+
+## Slow queries
+
+When slow query log or APM available — top 5 by total time with `EXPLAIN` on staging.
+
+Without data: **Unable to verify** slow queries — recommend enabling slow query log.
 
 ## Archival and retention
 

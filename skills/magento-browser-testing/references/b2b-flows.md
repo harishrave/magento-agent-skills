@@ -70,4 +70,4 @@ B2B_ADMIN_EMAIL=admin@company.test
 
 ## Handoff
 
-B2B PHP customization → **magento-module**. Admin quote grids → **magento-admin-ui** + [admin-browser-tests.md](admin-browser-tests.md).
+B2B PHP customization → **magento-module**. Admin quote grids → **magento-module** + [admin-browser-tests.md](admin-browser-tests.md).

@@ -101,8 +101,7 @@ you have a documented reason to customize CSRF handling.
 
 ## Admin grids
 
-Modern listings are `ui_component` XML — see the **magento-admin-ui** skill for full grid/form
-patterns. Minimum stack:
+Modern listings are `ui_component` XML — see [admin-grid.md](admin-grid.md) and [grid-data-providers.md](grid-data-providers.md) for full patterns. Minimum stack:
 
 1. Layout: `ravedigital_store_location_index.xml` → `<uiComponent name="ravedigital_store_location_listing"/>`
 2. Listing XML under `view/adminhtml/ui_component/`

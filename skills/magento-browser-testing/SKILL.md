@@ -103,7 +103,7 @@ with getByRole/getByLabel. playwright-mcp-optional.md
 | After browser test finds… | Skill |
 |---|---|
 | PHP/module bug | **magento-module** |
-| Admin ui_component issue | **magento-admin-ui** |
+| Admin ui_component issue | **magento-module** (`admin-ui-troubleshooting.md`) |
 | Code quality gaps | **magento-module** (`static-analysis.md`) |
 
 ## Agent compatibility

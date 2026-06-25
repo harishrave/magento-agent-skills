@@ -1,6 +1,11 @@
 # Version and Security Assessment
 
-Audit the Magento platform version, patch level, and dependency security posture.
+Shortcut for **Category 1 (environment)** and **Category 6 (security)**. Full playbooks:
+
+- [environment-audit.md](environment-audit.md)
+- [security-audit.md](security-audit.md)
+
+All findings must follow [evidence-and-severity.md](evidence-and-severity.md).
 
 ## Evidence to collect
 

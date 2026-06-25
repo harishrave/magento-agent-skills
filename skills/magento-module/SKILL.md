@@ -1,156 +1,129 @@
 ---
 name: magento-module
 description: >-
-  Correct Magento 2 / Mage-OS / Adobe Commerce module development: scaffolding new modules,
-  extending or customizing core behavior (plugin vs observer vs preference decisions),
-  declarative schema and custom tables, product/EAV attributes, dependency injection,
-  checkout/cart/totals and custom order or shipping fee logic, admin configuration
-  (system.xml/ACL), admin grids and ui_components, layout XML and view models, upgrading or
-  migrating custom modules (incl. to Mage-OS) and their composer.json constraints,
-  PHPCS (Magento2 standard) and PHPStan static analysis on app/code modules, and debugging
-  playbooks for setup:di:compile failures, layout not applying, and observers/plugins
-  that don't fire. Use this skill whenever the user is writing, modifying, or debugging custom
-  Magento, Mage-OS, or Adobe Commerce code — creating or extending a module/extension,
-  intercepting core behavior, adding database tables or attributes, building admin settings or
-  grids, frontend blocks or templates, running phpcs or phpstan on a module, or fixing errors
-  from bin/magento commands — even if they don't say "module" explicitly. Strong triggers:
-  "how do I override X in Magento", "my Magento layout/plugin/observer isn't working",
-  "do I use an observer or a plugin", or anything touching app/code, di.xml, events.xml,
-  db_schema.xml, or layout XML. For deep ui_component grid/form work (columns, filters, data
-  providers, mass actions), prefer the magento-admin-ui skill. For browser E2E use
-  magento-browser-testing. For project audits, version/security reviews, database optimization
-  recommendations, code review reports, or UI/UX suggestions use magento-audit. Do NOT trigger
-  for operational admin tasks (creating coupons, importing product CSVs, session/login settings),
-  Magento hosting/sizing questions, content/SEO copy, or non-Magento platforms like Shopify
-  or WooCommerce.
+  Magento 2 / Mage-OS / Adobe Commerce module development: scaffolding, plugins, observers,
+  declarative schema, DI, APIs, CLI/cron, storefront layout, admin configuration (system.xml/ACL),
+  admin grids and forms (ui_component), columns, filters, mass actions, data providers, extending
+  core listings like product_listing, PHPCS and PHPStan static analysis, and debugging compile,
+  layout, plugin, and admin grid failures. Use when writing or debugging app/code modules,
+  di.xml, db_schema.xml, ui_component XML, admin grids, product_listing, dataSource,
+  mui/index/render, listingToolbar, or bin/magento errors. Strong triggers: module scaffold,
+  plugin vs observer, admin grid, empty grid, ui_component, phpcs, phpstan. For browser validation
+  use magento-browser-testing. For enterprise audits use magento-audit. Do NOT trigger for
+  operational admin tasks, hosting questions, or non-Magento platforms.
 ---
 
 # Magento 2 / Mage-OS Module Development
 
 RaveDigital standards for custom Magento modules: code that compiles cleanly, survives code review,
-and aligns with 2.4.x / Mage-OS practices. Many public tutorials still show deprecated patterns
-(InstallSchema, block classes, class rewrites) — treat those as historical context, not a template.
+and aligns with 2.4.x / Mage-OS practices.
 
 ## Hard rules (RaveDigital review)
 
-These items block merge or marketplace submission:
+- **No `ObjectManager::getInstance()` in module code** — constructor injection only
+- **Schema via `db_schema.xml` only** — not InstallSchema/UpgradeSchema
+- **Prefer plugins over preferences**
+- **View models** for template logic — not custom Block classes
+- **Escape all `.phtml` output**
+- **UI components for new admin listings** — not legacy Widget Grid
+- **ACL on every listing** — `<aclResource>` matches `etc/acl.xml`
+- **Register collections in `di.xml`** — missing CollectionFactory → empty grid
+- **Extend core listings via merge XML** — never edit `vendor/`
 
-- **No `ObjectManager::getInstance()` in module code.** Dependencies belong in the constructor.
-  Framework-generated factories/proxies may use ObjectManager internally — that is expected.
-- **Schema via `db_schema.xml` only** — not `InstallSchema` / `UpgradeSchema` (deprecated since 2.3).
-- **Prefer plugins over preferences.** Preferences replace a whole class and collide with other modules;
-  plugins compose. See [references/plugins-and-observers.md](references/plugins-and-observers.md) before choosing.
-- **Template logic in view models**, not custom `Block` subclasses.
-- **Escape output in `.phtml`** — `$escaper->escapeHtml()`, `escapeHtmlAttr()`, `escapeUrl()`.
-- **Depend on `Api/` contracts** when calling other modules, not concrete `Model` classes.
-- **Scope `di.xml` by area** — `etc/frontend/di.xml` and `etc/adminhtml/di.xml` for area-specific wiring;
-  avoid registering frontend-only plugins globally.
+## Workflow — pick your task
 
-## Workflow
+| Task | Read first |
+|---|---|
+| New module from scratch | [references/module-scaffold.md](references/module-scaffold.md) |
+| Plugins, observers, preferences | [references/plugins-and-observers.md](references/plugins-and-observers.md) |
+| Database tables / columns | [references/database-and-schema.md](references/database-and-schema.md) |
+| DI, factories, virtual types | [references/dependency-injection.md](references/dependency-injection.md) |
+| Admin settings, menus, ACL | [references/admin-configuration.md](references/admin-configuration.md) |
+| **New admin grid** | [references/admin-grid.md](references/admin-grid.md) |
+| **New admin form** | [references/admin-form.md](references/admin-form.md) |
+| **Data provider / collection** | [references/grid-data-providers.md](references/grid-data-providers.md) |
+| **Extend core grid** | [references/extend-core-grids.md](references/extend-core-grids.md) |
+| **ui_component structure** | [references/ui-component-structure.md](references/ui-component-structure.md) |
+| **Empty admin grid / JS errors** | [references/admin-ui-troubleshooting.md](references/admin-ui-troubleshooting.md) |
+| Storefront layout, view models | [references/storefront-layout.md](references/storefront-layout.md) |
+| REST / GraphQL APIs | [references/web-apis.md](references/web-apis.md) |
+| CLI, cron, queues | [references/background-jobs.md](references/background-jobs.md) |
+| PHPCS + PHPStan | [references/static-analysis.md](references/static-analysis.md) |
+| Compile / module errors | [references/module-troubleshooting.md](references/module-troubleshooting.md) |
+| Composer packaging | [references/composer-packaging.md](references/composer-packaging.md) |
 
-1. **Identify the task type** and read the matching reference before writing code:
+## Admin UI conventions (ui_component)
 
-   | Task | Read first |
-   |---|---|
-   | New module from scratch | [references/module-scaffold.md](references/module-scaffold.md) |
-   | Change/intercept core behavior | [references/plugins-and-observers.md](references/plugins-and-observers.md) |
-   | Database tables / columns | [references/database-and-schema.md](references/database-and-schema.md) |
-   | DI wiring, virtual types, factories, proxies | [references/dependency-injection.md](references/dependency-injection.md) |
-   | Admin settings, menus, ACL | [references/admin-configuration.md](references/admin-configuration.md) |
-   | Admin grids/forms (ui_component) | **magento-admin-ui** skill (or admin-configuration.md for basics) |
-   | Frontend pages, blocks, templates, layout | [references/storefront-layout.md](references/storefront-layout.md) |
-   | REST / GraphQL / web APIs | [references/web-apis.md](references/web-apis.md) |
-   | CLI commands, cron jobs, message queues | [references/background-jobs.md](references/background-jobs.md) |
-   | Composer.json / package metadata | [references/composer-packaging.md](references/composer-packaging.md) |
-   | PHPCS + PHPStan on a module | [references/static-analysis.md](references/static-analysis.md) |
-   | Errors, "not working", compile failures | [references/module-troubleshooting.md](references/module-troubleshooting.md) |
+- ui_component filename, layout reference, `dataSource name`, and `js_config provider` must **match**
+- Study core examples: `product_listing.xml`, `cms_block_listing.xml`
+- Full stack for new grid: ACL + routes + menu + layout + ui_component + DataProvider + di.xml
 
-2. **For a new module, follow the scaffold workflow** in [references/module-scaffold.md](references/module-scaffold.md):
-   - Create `registration.php`, `etc/module.xml`, and `composer.json` with aligned naming.
-   - Cross-check the naming table before moving on.
-   - Run `module:enable`, `setup:upgrade`, and `setup:di:compile`.
-   - Add di.xml, schema, plugins, and layout only when the task requires them.
+**Verify admin work:**
 
-3. **Implement** business logic in small, single-purpose classes. Plugin `name` attributes are
-   global — prefix with the vendor (e.g. `ravedigital_storelocator_validate_address`).
+```bash
+bin/magento setup:di:compile
+bin/magento cache:flush
+bin/magento cache:clean layout block_html
+vendor/bin/phpcs --standard=Magento2 app/code/Vendor/Module
+```
 
-4. **Verify before declaring done.** From the Magento root:
+## Verify before declaring done
 
-   ```bash
-   bin/magento module:enable Vendor_Module
-   bin/magento setup:upgrade
-   bin/magento setup:di:compile         # must pass
-   vendor/bin/phpcs --standard=Magento2 app/code/Vendor/Module   # if installed
-   vendor/bin/phpstan analyse app/code/Vendor/Module -c phpstan.neon 2>/dev/null || true
-   bin/magento cache:flush
-   ```
+```bash
+bin/magento module:enable Vendor_Module
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+vendor/bin/phpcs --standard=Magento2 app/code/Vendor/Module
+vendor/bin/phpstan analyse app/code/Vendor/Module -c phpstan.neon 2>/dev/null || true
+bin/magento cache:flush
+```
 
-   See [references/static-analysis.md](references/static-analysis.md) for PHPCS/PHPStan commands and report format.
-
-   If `setup:di:compile` fails, go to [references/module-troubleshooting.md](references/module-troubleshooting.md).
+See [static-analysis.md](references/static-analysis.md). Compile failures → [module-troubleshooting.md](references/module-troubleshooting.md).
 
 ## Decision shortcuts
 
-- "Override what a core method returns/receives" → **plugin** (after/before).
-- "React to something happening (order placed, product saved)" → **observer**, or a plugin
-  on the service contract if you need to alter the result.
-- "Replace an entire class implementation" → almost never; re-read
-  [references/plugins-and-observers.md](references/plugins-and-observers.md).
-- "Add a column to a core table" → don't; use an extension attribute or a satellite table
-  ([references/database-and-schema.md](references/database-and-schema.md)).
-- "Template needs data" → view model ([references/storefront-layout.md](references/storefront-layout.md)).
-- "Expose data to REST/GraphQL/headless" → service contract (`Api/` interface) first
-  ([references/web-apis.md](references/web-apis.md)).
-- "Run phpcs/phpstan on module" → [static-analysis.md](references/static-analysis.md).
+| User says | Action |
+|---|---|
+| Plugin vs observer | [plugins-and-observers.md](references/plugins-and-observers.md) |
+| Add column to product grid | [extend-core-grids.md](references/extend-core-grids.md) |
+| Grid shows headers, no rows | [grid-data-providers.md](references/grid-data-providers.md) |
+| Mass action on grid | [admin-grid.md](references/admin-grid.md) |
+| Entity edit form | [admin-form.md](references/admin-form.md) |
+| phpcs / phpstan | [static-analysis.md](references/static-analysis.md) |
 
-## Master prompts (copy-paste)
+## Master prompts
 
-Full library: [docs/example-prompts.md](../../docs/example-prompts.md#magento-module).
+See [docs/example-prompts.md](../../docs/example-prompts.md#magento-module).
 
-**New module (end-to-end scaffold):**
+**Admin grid:**
 
 ```
-We need a physical store locator for click-and-collect.
-
-Create RaveDigital_StoreLocator in app/code per module-scaffold.md
-(registration.php, module.xml, composer.json — sequence: Magento_Store).
-
-Done when setup:upgrade && setup:di:compile pass and module:status shows enabled.
+Build Store Locations admin grid for RaveDigital_StoreLocator:
+menu, ACL, layout, ui_component, data provider, CollectionFactory in di.xml.
+Done when rows load. admin-grid.md + grid-data-providers.md.
 ```
 
-**Static analysis gate:**
+**Empty grid:**
 
 ```
-Run PHPCS (Magento2) and PHPStan on app/code/RaveDigital/StoreLocator.
-Group findings by severity per static-analysis.md. Recommend fixes — do not implement yet.
-```
-
-**Compile failure triage:**
-
-```
-setup:di:compile fails: "Cannot instantiate interface" for LocationRepositoryInterface.
-Module: RaveDigital_StoreLocator. Fix di.xml/preferences and re-run compile.
-module-troubleshooting.md.
+Grid shows headers but zero rows. RaveDigital_StoreLocator.
+dataProvider: ravedigital_store_location_listing_data_source.
+admin-ui-troubleshooting.md.
 ```
 
 ## Final checklist
 
-Before finishing any task, run through [references/review-checklist.md](references/review-checklist.md)
-and [references/static-analysis.md](references/static-analysis.md) when PHPCS/PHPStan are available.
+- [ ] [review-checklist.md](references/review-checklist.md)
+- [ ] Admin: ui_component name matches layout; collection in di.xml; ACL enforced
+- [ ] [static-analysis.md](references/static-analysis.md) when PHPCS/PHPStan available
 
-## Mage-OS notes
+## Handoffs
 
-Mage-OS is a community fork, drop-in compatible with Magento 2.4.x. Code targeting Magento
-2.4 works unchanged. In `composer.json`, depend on `magento/framework` version ranges (the
-Mage-OS packages provide/replace them) rather than pinning `magento/product-community-edition`.
+| After module work needs… | Skill |
+|---|---|
+| Browser validation of admin/storefront | **magento-browser-testing** |
+| Enterprise audit / findings report | **magento-audit** |
 
 ## Agent compatibility
 
-Install from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills).
-See [docs/install.md](../../docs/install.md).
-
-## Pairing with live data (optional)
-
-If a Magento MCP server (e.g. `elgentos/magento2-dev-mcp`) is connected, prefer it for
-reading *merged* configuration (effective di.xml, layout) instead of reasoning from single
-files — Magento merges XML across modules and the single-file view misleads.
+`./install.sh` from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills).

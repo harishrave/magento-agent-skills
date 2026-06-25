@@ -1,24 +1,44 @@
 # Code Review and Optimization
 
-Custom code audit for `app/code/`, `app/design/`, and project-level overrides. Findings and recommendations — implementation uses **magento-module**.
+**Category 2** — custom code audit for `app/code/`, `app/design/`, `composer.json`, `composer.lock`.
+
+Findings require [evidence-and-severity.md](evidence-and-severity.md). Implementation uses **magento-module**.
 
 ## Scan commands
 
 ```bash
-# Module inventory
-bin/magento module:status | grep -E 'Custom|VendorPrefix'
-
-# Standards (sample)
-vendor/bin/phpcs --standard=Magento2 app/code/ --report=summary
-
-# Deprecated patterns (ripgrep examples)
+bin/magento module:status | grep -E 'Custom|VendorPrefix|RaveDigital'
+vendor/bin/phpcs --standard=Magento2 app/code/ --report=summary 2>/dev/null
 rg "ObjectManager::getInstance" app/code/
 rg "InstallSchema|UpgradeSchema" app/code/
-rg "<preference for=" app/code/*/etc/
-rg "echo \$|->escapeHtml" app/code/ --glob '*.phtml'
+rg "<preference for=" app/code/
+rg "around[A-Z]" app/code/ --glob '*.php'
+rg "->load\(\)" app/code/ --glob '*.php' | head -30
+rg "SELECT .+ FROM" app/code/ --glob '*.php' -i
+rg "Zend_" app/code/
 ```
 
-## RaveDigital red flags (report as findings)
+## Enterprise code checks
+
+| Check | Evidence | Typical severity |
+|---|---|---|
+| ObjectManager usage | File:line | High |
+| Preferences on core | `di.xml` path | Medium–High |
+| Around plugins on hot paths | Plugin class + method | High |
+| Heavy observers (`sales_*`, `catalog_*`) | `events.xml` | Medium–High |
+| Large classes (>500 LOC) | File path | Medium |
+| Large methods (>50 LOC) | File:line | Medium |
+| Duplicate / dead code | rg unused classes | Low–Medium |
+| Repository vs Collection misuse | `Collection->load()` in loops | High |
+| Raw SQL in modules | `query()` / raw strings | High |
+| Deprecated APIs | Registry, InstallSchema, Zend | High |
+| Plugin conflicts | Same method, multiple around | High |
+| XML validation | `xmllint` or compile errors | Medium |
+| DI issues | `setup:di:compile` output | High |
+| Exception handling | Empty catch, exposed traces | Medium |
+| SOLID violations | God classes, tight coupling | Medium |
+| Coding standards | PHPCS summary | Medium |
+| Performance anti-patterns | N+1, sync API in checkout | High |
 
 | Pattern | Severity | Recommendation |
 |---|---|---|
@@ -75,7 +95,7 @@ For `vendor/*` modules (Amasty, Mageplaza, etc.):
 | Finding type | Skill |
 |---|---|
 | Refactor module / schema / DI | **magento-module** |
-| Admin grid UX after backend fix | **magento-admin-ui** |
+| Admin grid UX after backend fix | **magento-module** (`admin-grid.md`) |
 | PHPCS/PHPStan on module after fix | **magento-module** (`static-analysis.md`) |
 
 ## Out of scope

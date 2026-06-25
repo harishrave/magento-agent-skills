@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **SKILL.md master prompts** — magento-module, magento-admin-ui, magento-audit aligned with example-prompts library
 - **magento-browser-testing** — Cursor browser default; optional Playwright MCP when user asks for Playwright or generated specs
 - **Removed magento-testing** — `static-analysis.md` moved to **magento-module**; PHPUnit workflows removed (4 skills total)
+- **Removed magento-admin-ui** — admin ui_component references merged into **magento-module** (3 skills total)
+- **magento-audit** — enterprise audit framework: 11 categories, evidence rules, health scores, executive summary template
 
 ## [1.0.0] - 2026-06-18
 

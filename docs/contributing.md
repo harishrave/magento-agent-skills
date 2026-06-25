@@ -52,7 +52,7 @@ WHAT and WHEN.
 
 1. **Prefer references over bloating SKILL.md** — keep main file under 500 lines
 2. **Verify against a real Mage-OS install** when changing module conventions
-3. **Cross-link skills** — e.g. magento-module should point to magento-admin-ui for grids
+3. **Cross-link references** — e.g. admin grids in `admin-grid.md` under magento-module
 
 ## Pull request checklist
 

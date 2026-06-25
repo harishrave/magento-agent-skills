@@ -1,160 +1,138 @@
 ---
 name: magento-audit
 description: >-
-  Magento 2 / Mage-OS / Adobe Commerce project audits for RaveDigital consulting deliverables:
-  version and security patch assessment (e.g. upgrade 2.4.7-p7 to 2.4.8-p4), composer dependency
-  review, database optimization (indexes, slow queries, bloat, archival), custom code review
-  (deprecated APIs, ObjectManager, preferences, InstallSchema, di.xml conflicts), and UI/UX
-  review with actionable suggestions for admin and storefront. Use when the user asks for a Magento
-  audit, health check, technical review, upgrade assessment, security review, code optimization
-  recommendations, database tuning suggestions, or UX improvement report for a client project —
-  even if they do not say "audit" explicitly. Strong triggers: audit report, before/after upgrade,
-  technical debt review, deprecated code, patch level, performance baseline, admin usability,
-  checkout UX. For implementing fixes after the audit use magento-module, magento-admin-ui, or
-  magento-browser-testing. Do NOT trigger for writing new features from scratch without an audit/review
-  framing, or for non-Magento platforms.
+  Enterprise Magento 2 / Mage-OS / Adobe Commerce technical audit for consulting deliverables:
+  environment, code quality, extensions, database, performance, security, infrastructure, SEO,
+  frontend, Magento best practices, and business opportunities. Produces executive summary with
+  health scores, evidence-backed findings (Critical/High/Medium/Low), roadmap, and effort
+  estimates. Use when the user asks for a Magento audit, health check, technical review, technical
+  debt assessment, security review, performance audit, upgrade readiness, code review report,
+  database optimization review, SEO audit, or enterprise audit report for a client — even without
+  saying "audit". Strong triggers: audit report, technical debt, APSB, patch level, Core Web Vitals,
+  composer audit, extension review, infrastructure review. Never invent findings — every issue needs
+  evidence or "Unable to verify". For implementing fixes use magento-module or
+  magento-browser-testing. Do NOT trigger for building new features without audit framing.
 ---
 
-# Magento Project Audit (RaveDigital)
+# Magento Enterprise Audit (RaveDigital)
 
-Structured technical and UX audits for client Magento projects. Output is a **prioritized
-findings report with recommendations** — not implementation unless the user explicitly asks to fix issues.
+You are a **Senior Adobe Commerce Solution Architect** performing an enterprise-level audit.
 
-## Audit pillars
+**Not** a casual code review. Identify technical debt, performance bottlenecks, security risks,
+infrastructure issues, scalability concerns, maintainability problems, best practice violations,
+and business opportunities.
 
-| Pillar | Reference | Delivers |
+**Read first:** [references/evidence-and-severity.md](references/evidence-and-severity.md)
+
+## Non-negotiable rules
+
+| Rule | Action |
+|---|---|
+| Never invent findings | Every issue needs file, line, CLI, SQL, log, or metric |
+| No evidence | State **"Unable to verify"** |
+| Never guess | Skip unavailable sections |
+| Client-ready output | [audit-report-template.md](references/audit-report-template.md) |
+| Findings only | Do not implement fixes unless explicitly asked |
+
+## Inputs (use what is available)
+
+Code, database, SSH, Composer, production/staging URL, admin, New Relic, Cloudflare, Adobe Commerce Cloud.
+
+If a resource is missing — skip that section and document in appendix.
+
+## Audit order (11 categories)
+
+| # | Category | Reference |
 |---|---|---|
-| Version & security | [version-and-security.md](references/version-and-security.md) | Current vs target version, patch gap, EOL risk |
-| Database | [database-optimization.md](references/database-optimization.md) | Index, query, bloat, archival recommendations |
-| Code quality | [code-review.md](references/code-review.md) | Deprecated patterns, DI, module conflicts, standards |
-| UI/UX | [ui-ux-review.md](references/ui-ux-review.md) | Admin and storefront usability findings |
-| Report format | [audit-report-template.md](references/audit-report-template.md) | Client-ready deliverable structure |
+| 1 | Environment | [environment-audit.md](references/environment-audit.md) |
+| 2 | Code | [code-review.md](references/code-review.md) |
+| 3 | Extensions | [extension-audit.md](references/extension-audit.md) |
+| 4 | Database | [database-optimization.md](references/database-optimization.md) |
+| 5 | Performance | [performance-audit.md](references/performance-audit.md) |
+| 6 | Security | [security-audit.md](references/security-audit.md) |
+| 7 | Infrastructure | [infrastructure-audit.md](references/infrastructure-audit.md) |
+| 8 | SEO | [seo-audit.md](references/seo-audit.md) |
+| 9 | Frontend + admin UX | [frontend-audit.md](references/frontend-audit.md), [ui-ux-review.md](references/ui-ux-review.md) |
+| 10 | Magento best practices | [magento-best-practices.md](references/magento-best-practices.md) |
+| 11 | Business opportunities | [business-opportunities.md](references/business-opportunities.md) |
+
+Shortcut (version + patch): [version-and-security.md](references/version-and-security.md)
 
 ## Workflow
 
-1. **Confirm scope** — full audit vs single pillar (version only, code only, etc.).
-2. **Gather evidence** from the project (read-only unless user authorizes changes):
+1. **Confirm scope** — full enterprise audit vs selected categories.
+2. **Gather evidence** (read-only):
 
    ```bash
    bin/magento --version
-   composer show magento/product-community-edition 2>/dev/null || composer show mage-os/product-community-edition
-   composer outdated --direct
-   bin/magento setup:db:status
-   bin/magento indexer:status
+   bin/magento deploy:mode:show
    bin/magento module:status
-   vendor/bin/phpcs --standard=Magento2 app/code/ 2>/dev/null | head -50
+   bin/magento indexer:status
+   bin/magento cache:status
+   bin/magento setup:db:status
+   composer audit 2>/dev/null
+   composer outdated --direct
+   vendor/bin/phpcs --standard=Magento2 app/code/ --report=summary 2>/dev/null
    ```
 
-3. **Read the matching reference** for each pillar before writing findings.
-4. **Produce the report** using [audit-report-template.md](references/audit-report-template.md):
-   - Severity: **Critical** / **High** / **Medium** / **Low** / **Info**
-   - Finding → Impact → Recommendation → Effort (S/M/L)
-5. **Do not implement fixes** unless asked — hand off remediation:
-   - Code/schema/DI fixes → **magento-module**
-   - Admin grid/form UX → **magento-admin-ui**
-   - Static analysis gaps → **magento-module** (`static-analysis.md`)
+3. **Run categories in order** — read each reference before writing findings.
+4. **Write report** per [audit-report-template.md](references/audit-report-template.md):
+   - Executive summary with health scores
+   - Top 10 critical findings + top 10 quick wins
+   - Detailed sections per category
+   - Roadmap with effort (S/M/L)
+5. **Hand off remediation** (do not fix unless asked):
+   - Code / schema / DI / admin UX → **magento-module**
+   - PHPCS/PHPStan → **magento-module** (`static-analysis.md`)
+   - Browser validation → **magento-browser-testing**
 
-## RaveDigital audit standards
+## Finding format (required)
 
-- **Evidence-based** — cite file paths, versions, or command output; no generic Magento blog advice.
-- **Prioritized** — security and upgrade gaps before cosmetic UX.
-- **Actionable** — every finding has a concrete next step (not "consider improving performance").
-- **Honest scope** — state what was not reviewed (load test, penetration test, full DB EXPLAIN on production).
-- **No fear-mongering** — distinguish must-fix (unpatched CVE) from should-fix (deprecated helper).
+Title | Severity | Category | Evidence | Affected files | Risk | Business impact | Recommendation (WHY/HOW/benefit) | Effort | Priority
 
-## Version audit shortcut
+## Severity quick reference
 
-When the user provides or you detect a version like `2.4.7-p7`:
+| Level | Examples |
+|---|---|
+| **Critical** | Unpatched CVE; dev mode prod; checkout broken; data loss risk |
+| **High** | Performance architecture; invalid indexer; heavy around plugins |
+| **Medium** | Maintainability; missing indexes; best practice gaps |
+| **Low** | Cleanup; documentation; cosmetic |
 
-1. Identify latest secure patch in the same minor line and recommended target (e.g. `2.4.8-p4`).
-2. List composer packages lagging behind core.
-3. Note custom modules that may block upgrade (PHP version, deprecated APIs).
+## Master prompts
 
-See [version-and-security.md](references/version-and-security.md).
+See [docs/example-prompts.md](../../docs/example-prompts.md#magento-audit).
 
-## Code review shortcut
-
-Scan `app/code/` and `app/design/` for:
-
-- `ObjectManager::getInstance()` in module code
-- `InstallSchema` / `UpgradeSchema` (should be `db_schema.xml`)
-- Class preferences where plugins suffice
-- Unescaped `.phtml` output
-- Core overrides in `vendor/` (never acceptable)
-
-See [code-review.md](references/code-review.md).
-
-## Database shortcut
-
-Review without destructive changes:
-
-- `SHOW TABLE STATUS` / size outliers (`report_*`, `session`, `log_*`)
-- Missing indexes on custom tables (`db_schema.xml`)
-- Indexer invalid state, backlog
-- Async/batch vs synchronous reindex on production
-
-See [database-optimization.md](references/database-optimization.md).
-
-## UI/UX shortcut
-
-Split **admin** vs **storefront**:
-
-- Admin: grid usability, ACL clarity, config discoverability, error messages
-- Storefront: checkout steps, mobile layout, LCP/CWV signals if Lighthouse data provided, accessibility basics
-
-See [ui-ux-review.md](references/ui-ux-review.md).
-
-## Master prompts (copy-paste)
-
-Full library: [docs/example-prompts.md](../../docs/example-prompts.md#magento-audit).
-
-**Full client audit:**
+**Full enterprise audit:**
 
 ```
-Run a RaveDigital Magento project audit — client deliverable, findings only.
+Run a RaveDigital enterprise Magento audit — client deliverable, findings only.
 
-Pillars: version/security, database optimization, app/code review, admin + storefront UX.
-Format: audit-report-template.md. Severity: Critical / High / Medium / Low.
-Do not implement fixes in this pass.
+Follow evidence-and-severity.md and audit-report-template.md.
+Categories: environment, code, extensions, database, performance, security,
+infrastructure, SEO, frontend, best practices, business opportunities.
+
+Executive summary with health scores, top 10 critical, top 10 quick wins, roadmap.
+Never invent findings — use "Unable to verify" when evidence is missing.
+Do not implement fixes.
 ```
 
-**Upgrade readiness:**
+**Single category:**
 
 ```
-Upgrade assessment: bin/magento --version is 2.4.7-p7.
-Recommend target patch, security gaps, and blockers before 2.4.8.x.
-version-and-security.md. Prioritized findings table.
-```
-
-**Pre-release code gate:**
-
-```
-Pre-release code review of app/code: ObjectManager, InstallSchema, preferences,
-unescaped .phtml, risky plugins. Prioritized table per code-review.md — no code changes yet.
-```
-
-**Phased audit → fix:**
-
-```
-Phase 1: Full magento-audit (audit-report-template.md).
-Phase 2: Implement top 3 Critical/High code findings only (hand off to magento-module).
-Do not start Phase 2 until I approve the audit summary.
+Security + environment audit only. security-audit.md + environment-audit.md.
+Evidence-backed findings table. No code changes.
 ```
 
 ## Final checklist
 
-- [ ] All requested pillars covered or explicitly excluded
-- [ ] Version numbers verified from `composer.lock` or `bin/magento --version`
-- [ ] Findings prioritized by severity
-- [ ] Remediation handoffs noted (which skill for fixes)
-- [ ] Report suitable to share with client stakeholders
-
-## Mage-OS notes
-
-For Mage-OS projects, compare against [Mage-OS release notes](https://github.com/mage-os/mageos-release) and
-`mage-os/product-community-edition` constraints — not only Adobe Commerce versioning.
+- [ ] [evidence-and-severity.md](references/evidence-and-severity.md) applied to every finding
+- [ ] Unavailable sections marked "Unable to verify"
+- [ ] Health scores justified in executive summary
+- [ ] Roadmap with priorities and effort
+- [ ] Remediation handoffs noted
+- [ ] Report suitable for enterprise client stakeholders
 
 ## Agent compatibility
 
-Install with `./install.sh` from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills).
-See [docs/install.md](../../docs/install.md).
+`./install.sh` from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills).

@@ -1,6 +1,8 @@
 # UI/UX Review
 
-Usability and experience recommendations for **admin** and **storefront**. This is a structured expert review — not a full design engagement unless scoped.
+Admin and storefront **usability narrative** for enterprise audits. Pair with [frontend-audit.md](frontend-audit.md) for measurable front-end checks.
+
+All findings must follow [evidence-and-severity.md](evidence-and-severity.md).
 
 ## Admin UX
 
@@ -14,7 +16,7 @@ Review areas accessible from code/config (or user-provided screenshots):
 | **Config** | Critical settings scattered in multiple tabs | `system.xml` grouping; default values documented |
 | **Errors** | Raw exceptions shown to admin users | Friendly messages; log detail server-side |
 
-Cross-reference **magento-admin-ui** for implementation patterns after audit.
+Cross-reference **magento-module** for implementation patterns after audit.
 
 ## Storefront UX
 
@@ -77,6 +79,6 @@ Group findings:
 
 | Recommendation | Skill |
 |---|---|
-| Admin grid/form improvements | **magento-admin-ui** |
+| Admin grid/form improvements | **magento-module** |
 | New module behavior / checkout plugin | **magento-module** |
 | Hyvä theme changes | Hyvä AI Tools + **magento-module** |

@@ -13,10 +13,9 @@ passes `bin/magento setup:di:compile` and `phpcs --standard=Magento2` without re
 
 | Skill | Purpose |
 |---|---|
-| [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, PHPCS, PHPStan |
-| [magento-admin-ui](skills/magento-admin-ui/) | Admin grids/forms, ui_component, data providers, extending core listings |
-| [magento-browser-testing](skills/magento-browser-testing/) | Cursor browser: login, checkout, admin UI (local Playwright optional for CI) |
-| [magento-audit](skills/magento-audit/) | Project audits: version/security, database, code review, UI/UX reports |
+| [magento-module](skills/magento-module/) | Modules, plugins, schema, DI, APIs, admin ui_component, PHPCS, PHPStan |
+| [magento-browser-testing](skills/magento-browser-testing/) | Cursor browser: login, checkout, admin UI validation |
+| [magento-audit](skills/magento-audit/) | Enterprise audit: environment, code, extensions, DB, performance, security, SEO, roadmap |
 
 ## Quick install
 
@@ -49,7 +48,7 @@ Skills load automatically when your prompts match their descriptions. Examples:
 - *"Empty admin grid — dataProvider ravedigital_store_location_listing_data_source. Diagnose and fix"*
 - *"Post-upgrade gate: setup:di:compile + PHPCS + PHPStan on all app/code modules"*
 - *"Use Cursor browser to validate guest checkout through shipping — report pass/fail with screenshots"*
-- *"Client audit: version, database, app/code review, UX — audit-report-template.md, findings only"*
+- *"Enterprise Magento audit: evidence-backed findings, health scores, roadmap — audit-report-template.md, findings only"*
 
 Natural language is enough — no agent-specific slash commands required.
 
@@ -60,8 +59,7 @@ magento-agent-skills/
 ├── install.sh                     # Install all skills (recommended)
 ├── magento-skills.json            # Skill manifest
 ├── skills/
-│   ├── magento-module/references/     # Module development + static analysis
-│   ├── magento-admin-ui/references/   # Admin ui_component guides
+│   ├── magento-module/references/     # Module dev, admin UI, static analysis
 │   ├── magento-browser-testing/references/  # Playwright E2E & UI validation
 │   └── magento-audit/references/      # Project audit pillars & report template
 ├── docs/
@@ -86,6 +84,12 @@ magento-agent-skills/
 | | `database-and-schema.md` | `db_schema.xml`, data patches |
 | | `dependency-injection.md` | DI, factories, proxies, virtual types |
 | | `admin-configuration.md` | system.xml, ACL, menus |
+| | `admin-grid.md` | Custom admin listings |
+| | `admin-form.md` | Entity edit forms |
+| | `grid-data-providers.md` | CollectionFactory wiring |
+| | `extend-core-grids.md` | Extend product_listing, etc. |
+| | `ui-component-structure.md` | XML anatomy and naming |
+| | `admin-ui-troubleshooting.md` | Empty grids, AJAX errors |
 | | `storefront-layout.md` | Layout XML, view models, templates |
 | | `web-apis.md` | REST, GraphQL, service contracts |
 | | `background-jobs.md` | CLI, cron, message queues |
@@ -102,17 +106,21 @@ magento-agent-skills/
 | | `admin-browser-tests.md` | Admin grid/form validation |
 | | `browser-troubleshooting.md` | Flaky tests, traces, debug |
 | | `browser-test-checklist.md` | Pre-merge browser test checklist |
-| **magento-admin-ui** | `admin-grid.md` | Custom admin listings |
-| | `admin-form.md` | Entity edit forms |
-| | `grid-data-providers.md` | CollectionFactory wiring |
-| | `extend-core-grids.md` | Extend product_listing, etc. |
-| | `ui-component-structure.md` | XML anatomy and naming |
-| | `admin-ui-troubleshooting.md` | Empty grids, AJAX errors |
-| **magento-audit** | `version-and-security.md` | Patch level, upgrade path, security |
-| | `database-optimization.md` | Indexes, bloat, indexer health |
-| | `code-review.md` | Deprecated code, standards, red flags |
-| | `ui-ux-review.md` | Admin and storefront UX findings |
-| | `audit-report-template.md` | Client deliverable structure |
+| **magento-audit** | `evidence-and-severity.md` | Evidence rules, severity, finding format |
+| | `audit-report-template.md` | Enterprise client deliverable |
+| | `environment-audit.md` | Version, PHP, Redis, search, deployment mode |
+| | `code-review.md` | Custom code, plugins, standards |
+| | `extension-audit.md` | Third-party and custom modules |
+| | `database-optimization.md` | Tables, indexes, bloat, EAV |
+| | `performance-audit.md` | CWV, cache, indexers, TTFB |
+| | `security-audit.md` | Patches, composer audit, 2FA, secrets |
+| | `infrastructure-audit.md` | CPU, RAM, PHP-FPM, services |
+| | `seo-audit.md` | Meta, sitemap, canonical, structured data |
+| | `frontend-audit.md` | Accessibility, JS/CSS, console errors |
+| | `magento-best-practices.md` | Cron, indexers, checkout config |
+| | `business-opportunities.md` | Strategic improvements |
+| | `version-and-security.md` | Version/patch shortcut |
+| | `ui-ux-review.md` | Admin and storefront UX narrative |
 
 ## Team rollout (RaveDigital)
 

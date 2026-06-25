@@ -1,6 +1,6 @@
 # Installation Guide
 
-Install **all** RaveDigital Magento agent skills in one step — `magento-module`, `magento-admin-ui`,
+Install **all** RaveDigital Magento agent skills in one step — `magento-module`,
 `magento-audit`, and `magento-browser-testing`.
 
 > **Repository:** [github.com/harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills)
@@ -83,7 +83,7 @@ your-magento-project/
     └── ...
 ```
 
-All four skills are always installed together.
+All three skills are always installed together.
 
 ### Update skills
 
@@ -112,7 +112,6 @@ npx skills add harishrave/magento-agent-skills -a cursor -y
 git clone https://github.com/harishrave/magento-agent-skills.git
 mkdir -p .cursor/skills
 cp -r magento-agent-skills/skills/magento-module .cursor/skills/
-cp -r magento-agent-skills/skills/magento-admin-ui .cursor/skills/
 cp -r magento-agent-skills/skills/magento-audit .cursor/skills/
 cp -r magento-agent-skills/skills/magento-browser-testing .cursor/skills/
 ```
@@ -123,7 +122,6 @@ cp -r magento-agent-skills/skills/magento-browser-testing .cursor/skills/
 
 ```bash
 ls .cursor/skills/magento-module/SKILL.md
-ls .cursor/skills/magento-admin-ui/SKILL.md
 ls .cursor/skills/magento-audit/SKILL.md
 ls .cursor/skills/magento-browser-testing/SKILL.md
 ```
@@ -131,7 +129,7 @@ ls .cursor/skills/magento-browser-testing/SKILL.md
 1. Open your Magento project in Cursor
 2. Start a **new Agent chat**
 3. Ask: *"Which skills apply to admin grid work? Do not write code yet."*
-4. Expect: **magento-admin-ui** and **magento-module**
+4. Expect: **magento-module** (includes admin grid references)
 
 See [testing-skills.md](testing-skills.md) for full test plans.
 
@@ -172,7 +170,7 @@ RaveDigital skills (backend) and [Hyvä AI Tools](https://github.com/hyva-themes
 
 | Problem | Solution |
 |---|---|
-| Agent ignores skills | New Agent chat; confirm all four `SKILL.md` files exist under `.cursor/skills/` |
+| Agent ignores skills | New Agent chat; confirm all three `SKILL.md` files exist under `.cursor/skills/` |
 | One-liner left broken symlinks (red paths, no `SKILL.md`) | Remove broken links: `rm -rf .cursor/skills/magento-*` then re-run the one-liner (script now **copies** files for remote install) |
 | Symlinks broken on Windows | Re-run with `--copy` |
 | Wrong directory | Use `--agents` for `.agents/skills/` |

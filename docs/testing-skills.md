@@ -49,7 +49,7 @@ Run PHPCS and PHPStan on RaveDigital_StoreLocator. Which skill and reference app
 Empty admin grid — dataProvider ravedigital_store_location_listing_data_source. Which skill?
 ```
 
-**Pass if:** cites **magento-admin-ui** + grid troubleshooting references.
+**Pass if:** cites **magento-module** + `admin-ui-troubleshooting.md` or `grid-data-providers.md`.
 
 ### D — Browser scope boundary
 
@@ -69,17 +69,17 @@ Create a Playwright test for customer login.
 Client technical audit — version, database, app/code review. Findings only.
 ```
 
-**Pass if:** cites **magento-audit** + `audit-report-template.md`.
+**Pass if:** cites **magento-audit** + `evidence-and-severity.md` + `audit-report-template.md`; mentions evidence or "Unable to verify".
 
 ---
 
 ## Quick checklist
 
 ```
-[ ] Four skills installed (.agents/skills/magento-module/, admin-ui, audit, browser-testing)
+[ ] Three skills installed (.agents/skills/magento-module/, audit, browser-testing)
 [ ] Test A: module routing
 [ ] Test B: static-analysis routing
-[ ] Test C: admin-ui routing
+[ ] Test C: admin grid routing (magento-module)
 [ ] Test D: browser boundary
 [ ] Test E: audit routing
 ```

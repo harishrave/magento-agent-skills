@@ -29,5 +29,5 @@
 ## Handoffs
 
 - [ ] PHP bugs → **magento-module**
-- [ ] Grid/form bugs → **magento-admin-ui**
+- [ ] Grid/form bugs → **magento-module**
 - [ ] Code quality → **magento-module** (`static-analysis.md`)

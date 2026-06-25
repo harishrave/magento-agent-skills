@@ -6,7 +6,6 @@
     "installsAll": true,
     "skills": [
       "magento-module",
-      "magento-admin-ui",
       "magento-audit",
       "magento-browser-testing"
     ],

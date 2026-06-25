@@ -83,7 +83,7 @@ Avoid brittle CSS chains and XPath position indexes.
 ### 7. Screenshots for debugging
 
 - Capture screenshots on assertion failure (`screenshot: 'only-on-failure'` in config)
-- Save repro screenshots when reporting bugs to **magento-module** or **magento-admin-ui**
+- Save repro screenshots when reporting bugs to **magento-module**
 
 ### 8. Magento and Adobe Commerce flows
 

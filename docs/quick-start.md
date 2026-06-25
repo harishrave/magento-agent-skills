@@ -1,75 +1,35 @@
 # Quick Start (RaveDigital)
 
-Get Magento agent skills running in under five minutes.
-
 ## 1. Install all skills
-
-From your **Magento project root**:
 
 ```bash
 git clone https://github.com/harishrave/magento-agent-skills.git
-
-cd /var/www/html/mage-os   # your Magento root
-
+cd /var/www/html/mage-os
 ../magento-agent-skills/install.sh --agents cursor
 ```
 
-Or one-liner:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/harishrave/magento-agent-skills/main/install.sh | sh -s cursor
-```
-
-Confirm all four skills exist:
+Confirm **three** skills:
 
 ```
 .agents/skills/magento-module/SKILL.md
-.agents/skills/magento-admin-ui/SKILL.md
 .agents/skills/magento-audit/SKILL.md
 .agents/skills/magento-browser-testing/SKILL.md
 ```
 
-## 2. Open the Magento codebase in Cursor
+## 2. Open Magento project in Cursor — new Agent chat
 
-Skills apply to the project you have open — point Cursor at your Mage-OS / Adobe Commerce install.
+## 3. Try a prompt
 
-## 3. Start a new Agent chat
+**Module + admin grid:**
 
-Use a **new chat** after installing or updating skills.
+> Create RaveDigital_StoreLocator with admin location grid per admin-grid.md. Done when compile passes and grid loads rows.
 
-## 4. Try a prompt
+**Browser:**
 
-Copy fuller templates from [example-prompts.md](example-prompts.md). Quick starters:
+> Smoke-test storefront with Cursor browser. cursor-browser.md.
 
-**Module (magento-module):**
+**Audit:**
 
-> We need a store locator module. Create RaveDigital_StoreLocator in app/code per module-scaffold.md. Done when setup:upgrade and setup:di:compile pass.
+> Enterprise audit per audit-report-template.md. Findings only.
 
-**Static analysis (magento-module):**
-
-> Run PHPCS and PHPStan on app/code/RaveDigital/StoreLocator. static-analysis.md.
-
-**Admin UI (magento-admin-ui):**
-
-> Add a "Visible in locator" column to product_listing via merge XML — select filter, no core edits. extend-core-grids.md.
-
-**Browser (magento-browser-testing):**
-
-> Smoke-test storefront with Cursor browser: homepage + customer login. Screenshot failures. cursor-browser.md.
-
-## 5. Team rollout
-
-| Approach | Command |
-|---|---|
-| Clone + symlink (recommended) | `./magento-agent-skills/install.sh cursor` |
-| One-liner | `curl …/install.sh \| sh -s cursor` |
-| Commit symlinks in Magento repo | Zero setup for new clones |
-
-See [install.md](install.md).
-
-## More
-
-- [example-prompts.md](example-prompts.md) — prompt library
-- [skills-map.md](skills-map.md) — which skill when
-- [testing-skills.md](testing-skills.md) — verify skills work
-- [contributing.md](contributing.md) — improving skills
+See [example-prompts.md](example-prompts.md) and [install.md](install.md).

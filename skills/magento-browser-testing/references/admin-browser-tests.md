@@ -38,7 +38,7 @@ projects: [
 
 ## Custom module grid (RaveDigital_StoreLocator)
 
-After **magento-admin-ui** builds `ravedigital_store_location_listing`:
+After **magento-module** builds `ravedigital_store_location_listing`:
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -70,7 +70,7 @@ test('can open new location form', async ({ page }) => {
 
 ## Browser workflow (manual + automated)
 
-Align with **magento-admin-ui** troubleshooting:
+Align with **magento-module** troubleshooting:
 
 1. Load grid in browser
 2. Check `var/log/system.log` and browser console for JS errors

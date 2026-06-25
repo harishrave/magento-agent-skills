@@ -90,10 +90,6 @@ We upgraded 2.4.7-p7 → 2.4.8-p4. Run setup:di:compile, then PHPCS and PHPStan
 on all app/code modules per static-analysis.md. Report pass/fail summary.
 ```
 
----
-
-## magento-admin-ui
-
 ### Admin grid (full stack)
 
 ```
@@ -229,18 +225,29 @@ Generate Playwright specs if flow passes. b2b-flows.md + playwright-mcp-optional
 
 ## magento-audit
 
-### Full technical audit (client deliverable)
+### Full enterprise audit (client deliverable)
 
 ```
-Run a RaveDigital Magento project audit (magento-audit). Deliverable for client — findings only.
+Run a RaveDigital enterprise Magento audit (magento-audit). Client deliverable — findings only.
 
-Pillars:
-1. Version & security — patch level vs recommended target
-2. Database — indexes, bloat, indexer health
-3. Custom code — app/code standards, deprecated patterns
-4. UI/UX — admin + storefront quick wins
+Follow evidence-and-severity.md and audit-report-template.md.
+All 11 categories: environment, code, extensions, database, performance, security,
+infrastructure, SEO, frontend, best practices, business opportunities.
 
-Format: audit-report-template.md. No code changes in this pass.
+Deliver: executive summary with health scores, top 10 critical findings, top 10 quick wins,
+detailed evidence-backed findings, recommended roadmap.
+
+Never invent findings — use "Unable to verify" when evidence is missing. No code changes.
+```
+
+### Security + environment only
+
+```
+Security and environment audit only (magento-audit).
+
+security-audit.md + environment-audit.md + evidence-and-severity.md.
+Patch level, composer audit, deployment mode, 2FA, secrets exposure.
+Findings table with evidence — no implementation.
 ```
 
 ### Upgrade readiness
@@ -248,28 +255,38 @@ Format: audit-report-template.md. No code changes in this pass.
 ```
 Upgrade assessment: bin/magento --version is 2.4.7-p7.
 
-Per version-and-security.md: recommend target version, security gaps,
-and blockers before we schedule 2.4.8.x. Findings table with severity.
+version-and-security.md + extension-audit.md: target patch, APSB gaps,
+custom module blockers, third-party compatibility. Severity table + roadmap.
 ```
 
-### Code review (app/code)
+### Code audit (app/code)
 
 ```
-Technical code review of app/code for a pre-release gate.
+Enterprise code audit of app/code per code-review.md.
 
-Flag: ObjectManager, InstallSchema, preferences, unescaped .phtml, plugins on wrong methods.
-Output prioritized table per code-review.md — Critical / High / Medium / Low.
+Check: ObjectManager, preferences, around plugins, heavy observers, raw SQL,
+deprecated APIs, N+1 patterns, PHPCS summary. evidence-and-severity.md format.
+Critical / High / Medium / Low — no code changes yet.
 ```
 
-### UX review
+### Performance + SEO
 
 ```
-UX review for conversion and admin efficiency:
+Performance and SEO audit (magento-audit).
 
-- Storefront: checkout friction, mobile layout, search
-- Admin: product grid usability, custom module screens
+performance-audit.md + seo-audit.md. Use Lighthouse data if I provide it;
+otherwise mark CWV metrics as "Unable to verify". Business impact per finding.
+```
 
-Prioritized recommendations per ui-ux-review.md — no implementation yet.
+### UX + frontend
+
+```
+Frontend and UX audit:
+
+- frontend-audit.md — accessibility, console errors, CWV if provided
+- ui-ux-review.md — checkout, admin usability
+
+Prioritized recommendations — no implementation yet.
 ```
 
 ---
@@ -282,7 +299,7 @@ Prioritized recommendations per ui-ux-review.md — no implementation yet.
 Ship RaveDigital_StoreLocator end-to-end:
 
 1. Module scaffold + db_schema (magento-module)
-2. Admin location grid + edit form (magento-admin-ui)
+2. Admin location grid + edit form (magento-module → admin-grid.md)
 3. PHPCS + PHPStan on module (magento-module → static-analysis.md)
 4. setup:di:compile must pass
 
@@ -302,7 +319,7 @@ admin-browser-tests.md. Report pass/fail with screenshots.
 
 ```
 Phase 1 — Run magento-audit (full pillars, audit-report-template.md).
-Phase 2 — Implement top 3 Critical/High code findings only (magento-module / magento-admin-ui).
+Phase 2 — Implement top 3 Critical/High code findings only (magento-module).
 Phase 3 — Re-run PHPCS on touched modules (magento-module → static-analysis.md).
 
 Do not start Phase 2 until I approve the audit summary.
@@ -326,8 +343,7 @@ Single combined report: blockers, static analysis summary, browser pass/fail.
 
 | You want… | Skill |
 |---|---|
-| New module, API, schema, plugin | **magento-module** |
-| Admin grid or form | **magento-admin-ui** |
+| New module, API, schema, plugin, admin grid/form | **magento-module** |
 | PHPCS, PHPStan, compile gate | **magento-module** |
 | Browser / Cursor browser testing | **magento-browser-testing** |
 | Client audit report | **magento-audit** |

@@ -1,115 +1,212 @@
-# Audit Report Template
+# Enterprise Audit Report Template
 
-Client-ready structure for RaveDigital Magento project audits. Copy and fill — remove sections not in scope.
+Client-ready structure for RaveDigital Magento enterprise audits.  
+**Every finding** must follow [evidence-and-severity.md](evidence-and-severity.md).
 
 ---
 
-# Magento Technical Audit — [Client Name]
+# Magento Enterprise Audit — [Client Name]
 
-**Project:** [store URL or project name]  
+**Project:** [store URL]  
 **Audit date:** [YYYY-MM-DD]  
 **Auditor:** RaveDigital  
-**Magento edition:** [Open Source / Adobe Commerce / Mage-OS]  
-**Scope:** [Full audit | Version only | Code + DB | etc.]
+**Edition:** [Open Source / Adobe Commerce / Mage-OS]  
+**Scope:** [Full | Environment + Code | etc.]  
+**Resources available:** [code / DB / SSH / staging URL / admin / APM — list or "code only"]
 
 ---
 
 ## Executive summary
 
-2–4 sentences for stakeholders: overall health, top 3 risks, recommended next step (e.g. patch upgrade within 30 days).
+### Health scores (1–10 or letter grade — justify each)
 
-| Priority | Count |
+| Dimension | Score | Summary |
+|---|---|---|
+| Overall health | | |
+| Performance | | |
+| Security | | |
+| Code quality | | |
+| Infrastructure | | |
+| SEO | | |
+| Maintainability | | |
+
+### Finding counts
+
+| Severity | Count |
 |---|---|
 | Critical | |
 | High | |
 | Medium | |
 | Low | |
 
----
+### Top 10 critical findings
 
-## 1. Version and security
+| # | Title | Category | Priority |
+|---|---|---|---|
+| 1 | | | |
 
-**Current state:** e.g. Magento **v2.4.7-p7** on PHP 8.2.x.
+### Top 10 quick wins
 
-**Recommendation:** Upgrade to **v2.4.8-p4** (or latest secure patch for your line) to address [APS-XXX / security bulletins].
+| # | Title | Effort | Expected benefit |
+|---|---|---|---|
+| 1 | | S | |
 
-| # | Finding | Severity | Recommendation | Effort |
-|---|---|---|---|---|
-| 1.1 | | | | S / M / L |
-| 1.2 | | | | |
+### Top recommendations (roadmap headline)
 
-**Upgrade notes:** [PHP, search engine, blockers from custom modules]
-
----
-
-## 2. Database optimization
-
-| # | Finding | Severity | Recommendation | Effort |
-|---|---|---|---|---|
-| 2.1 | e.g. Large `report_*` tables | Medium | Enable aggregation; 90-day retention | S |
-| 2.2 | | | | |
-
-**Not reviewed:** [e.g. production slow query log — recommend staging analysis]
+1. 
+2. 
+3. 
 
 ---
 
-## 3. Code review and optimization
+## 1. Environment audit
 
-**Modules reviewed:** [list `app/code` vendors or "all custom modules"]
+Reference: [environment-audit.md](environment-audit.md)
 
-| # | Finding | Location | Severity | Recommendation | Effort |
+| Component | Current | Status | Notes |
+|---|---|---|---|
+| Magento version | | | |
+| PHP | | | |
+| Database | | | |
+| Redis / Valkey | | | |
+| OpenSearch | | | |
+| Deployment mode | | | |
+| Theme | | | |
+
+**Findings:** [table or "Unable to verify — no env.php access"]
+
+---
+
+## 2. Code audit
+
+Reference: [code-review.md](code-review.md)
+
+| # | Title | Severity | Evidence | Affected files | Business impact | Recommendation | Effort | Priority |
+|---|---|---|---|---|---|---|---|---|
+| 2.1 | | | | | | | | |
+
+---
+
+## 3. Extension audit
+
+Reference: [extension-audit.md](extension-audit.md)
+
+| Module | Vendor | Version | Purpose | Upgrade risk | Recommendation |
 |---|---|---|---|---|---|
-| 3.1 | ObjectManager usage | `Vendor_Module/...` | High | Constructor DI | M |
-| 3.2 | InstallSchema legacy | `Vendor_Old/Setup/` | High | `db_schema.xml` migration | L |
-| 3.3 | | | | | |
-
-**Standards:** PHPCS summary — [X errors, Y warnings] in `app/code` (sample run).
-
-**Deprecated patterns summary:**
-
-- [ ] ObjectManager in module code
-- [ ] Schema install/upgrade classes
-- [ ] Core preferences
-- [ ] Unescaped templates
+| | | | | | |
 
 ---
 
-## 4. UI/UX review
+## 4. Database audit
 
-### 4.1 Storefront
+Reference: [database-optimization.md](database-optimization.md)
 
-| # | Area | Finding | Impact | Recommendation | Priority |
+| # | Title | Severity | Evidence | Recommendation | Effort |
 |---|---|---|---|---|---|
-| 4.1.1 | Checkout | | | | |
-| 4.1.2 | Mobile PLP | | | | |
-
-### 4.2 Admin
-
-| # | Area | Finding | Recommendation | Priority |
-|---|---|---|---|---|
-| 4.2.1 | Product grid | | | |
-
-**Performance UX (if measured):** LCP / INP / CLS — [scores or "not measured — recommend Lighthouse audit"]
+| 4.1 | | | | | |
 
 ---
 
-## 5. Recommended roadmap
+## 5. Performance audit
+
+Reference: [performance-audit.md](performance-audit.md)
+
+| Page / area | Metric | Value | Threshold | Severity | Recommendation |
+|---|---|---|---|---|---|
+| Homepage | LCP | | < 2.5s | | |
+
+**Unable to verify:** [list metrics not measured]
+
+---
+
+## 6. Security audit
+
+Reference: [security-audit.md](security-audit.md)
+
+| # | Title | Severity | Evidence | Recommendation | Effort |
+|---|---|---|---|---|---|
+| 6.1 | | | | | |
+
+---
+
+## 7. Infrastructure audit
+
+Reference: [infrastructure-audit.md](infrastructure-audit.md)
+
+| Resource | Status | Finding |
+|---|---|---|
+| CPU / RAM | Unable to verify / [value] | |
+
+---
+
+## 8. SEO audit
+
+Reference: [seo-audit.md](seo-audit.md)
+
+| # | Title | Severity | Evidence | Recommendation |
+|---|---|---|---|---|
+| 8.1 | | | | |
+
+---
+
+## 9. Frontend audit
+
+Reference: [frontend-audit.md](frontend-audit.md), [ui-ux-review.md](ui-ux-review.md)
+
+### Storefront
+
+| # | Title | Severity | Evidence | Recommendation |
+|---|---|---|---|---|
+
+### Admin UX
+
+| # | Title | Severity | Recommendation |
+|---|---|---|---|
+
+---
+
+## 10. Magento best practices
+
+Reference: [magento-best-practices.md](magento-best-practices.md)
+
+| Area | Status | Finding |
+|---|---|---|
+| Cron | | |
+| Indexers | | |
+| Cache | | |
+
+---
+
+## 11. Business opportunities
+
+Reference: [business-opportunities.md](business-opportunities.md)
+
+| Opportunity | Evidence | Expected benefit | Effort | Priority |
+|---|---|---|---|---|
+| | | | | |
+
+---
+
+## Recommended roadmap
 
 | Phase | Timeline | Items |
 |---|---|---|
-| **Immediate** | 0–2 weeks | Security patch, critical fixes |
-| **Short term** | 1–2 months | DB cleanup, high-severity code |
-| **Medium term** | 3–6 months | UX improvements, test coverage |
+| **Immediate** | 0–2 weeks | Critical security, checkout blockers |
+| **Short term** | 1–2 months | High performance, code debt |
+| **Medium term** | 3–6 months | SEO, UX, opportunities |
+| **Long term** | 6+ months | Platform upgrade, architecture |
 
 ---
 
-## 6. Appendix
+## Appendix
 
 - **Commands run:** [list]
-- **Files sampled:** [paths]
-- **Out of scope:** [pen test, load test, full vendor review, etc.]
-- **Remediation:** Implementation can be executed using RaveDigital development skills (`magento-module`, `magento-admin-ui`, `magento-browser-testing`).
+- **Files / URLs sampled:** [paths]
+- **Sections skipped:** [reason — no access]
+- **Unable to verify:** [bulleted list]
+- **Out of scope:** [pen test, load test, full vendor review]
+- **Remediation skills:** **magento-module**, **magento-browser-testing**
 
 ---
 
-*This report contains recommendations only. Changes to production should follow your change-management and staging process.*
+*Recommendations only. Production changes require staging validation and change management.*
