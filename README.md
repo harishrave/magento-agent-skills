@@ -6,20 +6,18 @@ Stop re-explaining Magento conventions in every chat. Install once; your agent f
 
 > **Repository:** [github.com/harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills)
 
-## Why developers use this
+## Features
 
-| Benefit | What you get |
-|---|---|
-| **Less rework** | Generated modules target `setup:di:compile` and PHPCS — not tutorial-era InstallSchema and ObjectManager |
-| **Faster onboarding** | Juniors prompt with skill references; agents cite `admin-grid.md` instead of guessing ui_component wiring |
-| **Consistent code review** | Same RaveDigital rules every session — plugins over preferences, view models, escaped `.phtml` |
-| **Admin grids that work** | Full-stack grid guidance: ACL, data provider, CollectionFactory, empty-grid troubleshooting |
-| **Browser validation in Cursor** | Smoke login, checkout, and admin UI with built-in browser tools — no extra MCP setup |
-| **Playwright when you need it** | Optional Playwright MCP for spec generation; local `@playwright/test` path for CI |
-| **Client-ready audits** | 11-category enterprise audit with evidence rules, health scores, and roadmap — not generic AI fluff |
-| **Copy-paste prompts** | [example-prompts.md](docs/example-prompts.md) with context, done criteria, and multi-skill workflows |
+- **Module development** — scaffolding, plugins, observers, `db_schema.xml`, DI, APIs, storefront layout, cron/CLI
+- **Admin UI** — ui_component grids and forms, data providers, extend core listings, empty-grid troubleshooting
+- **Quality gates** — PHPCS (Magento2), PHPStan on `app/code`
+- **Browser testing** — Cursor built-in browser for login, checkout, and admin smoke tests (no extra MCP setup)
+- **Playwright (optional)** — MCP for generated specs; local `@playwright/test` for CI pipelines
+- **Enterprise audits** — 11 categories, evidence rules, health scores, roadmap-ready client reports
+- **Ready-made prompts** — [example-prompts.md](docs/example-prompts.md) with context and done criteria
+- **Agent-agnostic** — Cursor, Claude Code, Codex, Windsurf; installs to `.cursor/skills/` or `.agents/skills/`
 
-Works with **your existing Magento project** — skills install into `.cursor/skills/` or `.agents/skills/`; no Composer package required.
+No Composer package required — point skills at your existing Magento project.
 
 ## Skills included
 

@@ -41,6 +41,38 @@ vendor/bin/phpcbf --standard=Magento2 \
 
 Re-run `phpcs` after `phpcbf` to see remaining violations.
 
+## PHPCS — PSR-12 (optional)
+
+Use **`PSR12`** only when the project or client explicitly requires FIG PSR-12 — not for the default RaveDigital Magento module gate (use **`Magento2`** above).
+
+### Check PSR-12 compliance
+
+```bash
+vendor/bin/phpcs --standard=PSR12 \
+  app/code/RaveDigital/StoreLocator
+```
+
+### Summary
+
+```bash
+vendor/bin/phpcs --standard=PSR12 --report=summary \
+  app/code/RaveDigital/StoreLocator
+```
+
+### Auto-fix (PSR-12)
+
+```bash
+vendor/bin/phpcbf --standard=PSR12 \
+  app/code/RaveDigital/StoreLocator
+```
+
+Re-run `phpcs --standard=PSR12` after `phpcbf` to confirm remaining issues.
+
+| Standard | When to use |
+|---|---|
+| **Magento2** | Default for Magento 2 / Mage-OS / Adobe Commerce `app/code` — style + Magento sniffs |
+| **PSR12** | Generic PHP style only — non-Magento libs, or explicit PSR-12 requirement |
+
 ## PHPStan
 
 ```bash
@@ -59,17 +91,23 @@ Prefer **project-root** `phpstan.neon` with path includes — avoid duplicating 
 
 ## Module quality gate (static analysis)
 
-Run before marking module work complete:
+Run before marking module work complete (default: **Magento2**):
 
 ```bash
 MODULE=app/code/RaveDigital/StoreLocator
 
-echo "=== PHPCS ==="
+echo "=== PHPCS (Magento2) ==="
 vendor/bin/phpcs --standard=Magento2 --report=summary "$MODULE" || true
 
 echo "=== PHPStan ==="
 vendor/bin/phpstan analyse "$MODULE" --level=5 2>/dev/null || \
   vendor/bin/phpstan analyse "$MODULE" -c phpstan.neon 2>/dev/null || true
+```
+
+Optional PSR-12 only when required:
+
+```bash
+vendor/bin/phpcs --standard=PSR12 --report=summary "$MODULE" || true
 ```
 
 Pair with `bin/magento setup:di:compile` from the main **magento-module** workflow.
