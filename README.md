@@ -1,150 +1,128 @@
 # Magento Agent Skills
 
-**RaveDigital** agent skills for **Magento 2**, **Mage-OS**, and **Adobe Commerce** development.
-Compatible with any AI coding agent that supports the open [Agent Skills](https://github.com/vercel-labs/skills) format — **Cursor**, Claude Code, Codex, Windsurf, and others.
+**Production-grade AI skills for Magento 2, Mage-OS, and Adobe Commerce** — built by [RaveDigital](https://github.com/harishrave/magento-agent-skills) for teams using **Cursor**, Claude Code, Codex, Windsurf, and any agent that supports the open [Agent Skills](https://github.com/vercel-labs/skills) format.
 
-These skills encode RaveDigital's Magento engineering standards: declarative schema, constructor
-injection, ui_component patterns, and compile-safe module structure. The goal is generated code that
-passes `bin/magento setup:di:compile` and `phpcs --standard=Magento2` without rework.
+Stop re-explaining Magento conventions in every chat. Install once; your agent follows the same patterns your senior developers would — `db_schema.xml`, constructor injection, ui_component grids, compile gates, and evidence-backed audits.
 
 > **Repository:** [github.com/harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills)
+
+## Why developers use this
+
+| Benefit | What you get |
+|---|---|
+| **Less rework** | Generated modules target `setup:di:compile` and PHPCS — not tutorial-era InstallSchema and ObjectManager |
+| **Faster onboarding** | Juniors prompt with skill references; agents cite `admin-grid.md` instead of guessing ui_component wiring |
+| **Consistent code review** | Same RaveDigital rules every session — plugins over preferences, view models, escaped `.phtml` |
+| **Admin grids that work** | Full-stack grid guidance: ACL, data provider, CollectionFactory, empty-grid troubleshooting |
+| **Browser validation in Cursor** | Smoke login, checkout, and admin UI with built-in browser tools — no extra MCP setup |
+| **Playwright when you need it** | Optional Playwright MCP for spec generation; local `@playwright/test` path for CI |
+| **Client-ready audits** | 11-category enterprise audit with evidence rules, health scores, and roadmap — not generic AI fluff |
+| **Copy-paste prompts** | [example-prompts.md](docs/example-prompts.md) with context, done criteria, and multi-skill workflows |
+
+Works with **your existing Magento project** — skills install into `.cursor/skills/` or `.agents/skills/`; no Composer package required.
 
 ## Skills included
 
 | Skill | Purpose |
 |---|---|
-| [magento-module](skills/magento-module/) | Modules, plugins, schema, DI, APIs, admin ui_component, PHPCS, PHPStan |
-| [magento-browser-testing](skills/magento-browser-testing/) | Cursor browser: login, checkout, admin UI validation |
-| [magento-audit](skills/magento-audit/) | Enterprise audit: environment, code, extensions, DB, performance, security, SEO, roadmap |
+| [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, admin grids/forms (ui_component), PHPCS, PHPStan |
+| [magento-browser-testing](skills/magento-browser-testing/) | **Cursor browser** for interactive UI/E2E smoke tests; **optional Playwright** (MCP + generated specs, local `@playwright/test` for CI) — login, checkout, admin, B2B |
+| [magento-audit](skills/magento-audit/) | Enterprise audit: environment, code, extensions, database, performance, security, SEO, roadmap |
 
 ## Quick install
 
-Install **all skills** in one command:
+From your **Magento project root**:
 
 ```bash
 git clone https://github.com/harishrave/magento-agent-skills.git
-
-# From your Magento project root
 ./magento-agent-skills/install.sh cursor
 ```
 
-One-liner (no clone — downloads and **copies** skills into your project):
+One-liner (no clone — copies skills into your project):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/harishrave/magento-agent-skills/main/install.sh | sh -s cursor
 ```
 
-For symlink installs (live updates via `git pull`), clone the repo first — see [docs/install.md](docs/install.md).
+Symlink installs (live updates via `git pull`) — see [docs/install.md](docs/install.md).
 
-**Alternative** (requires Node.js): `npx skills add harishrave/magento-agent-skills -a cursor -y`
+**Alternative:** `npx skills add harishrave/magento-agent-skills -a cursor -y`
 
-See [docs/quick-start.md](docs/quick-start.md), [docs/example-prompts.md](docs/example-prompts.md), and [docs/install.md](docs/install.md).
+**Next:** [quick-start.md](docs/quick-start.md) · [example-prompts.md](docs/example-prompts.md) · [skills-map.md](docs/skills-map.md)
 
-## Usage
+## Example prompts
 
-Skills load automatically when your prompts match their descriptions. Examples:
+Skills route automatically from natural language:
 
-- *"Ship RaveDigital_StoreLocator: schema, admin grid, PHPCS/PHPStan — compile must pass"*
-- *"Empty admin grid — dataProvider ravedigital_store_location_listing_data_source. Diagnose and fix"*
-- *"Post-upgrade gate: setup:di:compile + PHPCS + PHPStan on all app/code modules"*
-- *"Use Cursor browser to validate guest checkout through shipping — report pass/fail with screenshots"*
-- *"Enterprise Magento audit: evidence-backed findings, health scores, roadmap — audit-report-template.md, findings only"*
-
-Natural language is enough — no agent-specific slash commands required.
+| You say… | Skill |
+|---|---|
+| *"Create RaveDigital_StoreLocator — schema, admin grid, compile must pass"* | **magento-module** |
+| *"Empty admin grid — dataProvider ravedigital_store_location_listing_data_source"* | **magento-module** |
+| *"PHPCS + PHPStan on app/code/RaveDigital/StoreLocator"* | **magento-module** |
+| *"Smoke-test guest checkout with Cursor browser — screenshots on failure"* | **magento-browser-testing** |
+| *"Generate Playwright specs for customer login — getByRole only"* | **magento-browser-testing** |
+| *"Enterprise audit with health scores — findings only, evidence required"* | **magento-audit** |
 
 ## Repository structure
 
 ```
 magento-agent-skills/
-├── install.sh                     # Install all skills (recommended)
-├── magento-skills.json            # Skill manifest
+├── install.sh
+├── magento-skills.json
 ├── skills/
-│   ├── magento-module/references/     # Module dev, admin UI, static analysis
-│   ├── magento-browser-testing/references/  # Playwright E2E & UI validation
-│   └── magento-audit/references/      # Project audit pillars & report template
+│   ├── magento-module/references/          # Module + admin UI + static analysis
+│   ├── magento-browser-testing/references/ # Cursor browser + Playwright (optional)
+│   └── magento-audit/references/           # Enterprise audit playbooks
 ├── docs/
-│   ├── quick-start.md       # 5-minute onboarding
-│   ├── example-prompts.md   # Copy-paste prompts per skill
-│   ├── skills-map.md        # Which skill when
-│   ├── testing-skills.md    # Verify skills in a Magento project
-│   ├── install.md
-│   └── contributing.md
-├── AGENTS.md                # Agent entry point (Cursor / compatible tools)
-├── README.md
-├── CHANGELOG.md
-└── NOTICE.md
+│   ├── quick-start.md
+│   ├── example-prompts.md
+│   ├── skills-map.md
+│   ├── testing-skills.md
+│   └── install.md
+└── AGENTS.md
 ```
 
-### Reference file index
+### Reference highlights
 
-| Skill | Reference | Topic |
-|---|---|---|
-| **magento-module** | `module-scaffold.md` | New module boilerplate (prompt workflow) |
-| | `plugins-and-observers.md` | Plugins, observers, preferences |
-| | `database-and-schema.md` | `db_schema.xml`, data patches |
-| | `dependency-injection.md` | DI, factories, proxies, virtual types |
-| | `admin-configuration.md` | system.xml, ACL, menus |
-| | `admin-grid.md` | Custom admin listings |
-| | `admin-form.md` | Entity edit forms |
-| | `grid-data-providers.md` | CollectionFactory wiring |
-| | `extend-core-grids.md` | Extend product_listing, etc. |
-| | `ui-component-structure.md` | XML anatomy and naming |
-| | `admin-ui-troubleshooting.md` | Empty grids, AJAX errors |
-| | `storefront-layout.md` | Layout XML, view models, templates |
-| | `web-apis.md` | REST, GraphQL, service contracts |
-| | `background-jobs.md` | CLI, cron, message queues |
-| | `module-troubleshooting.md` | Compile, layout, plugin debug playbooks |
-| | `review-checklist.md` | Pre-merge checklist |
-| | `static-analysis.md` | PHPCS + PHPStan on app/code module |
-| | `composer-packaging.md` | composer.json, versioning, Mage-OS deps |
-| **magento-browser-testing** | `cursor-browser.md` | Cursor built-in browser (default) |
-| | `playwright-mcp-optional.md` | Playwright MCP (explicit Playwright / spec generation) |
-| | `playwright-setup.md` | Optional local Playwright for CI |
-| | `selectors-and-pom.md` | getByRole, page objects, assertions |
-| | `storefront-flows.md` | Login, search, cart, checkout |
-| | `b2b-flows.md` | Company, quotes, B2B approval |
-| | `admin-browser-tests.md` | Admin grid/form validation |
-| | `browser-troubleshooting.md` | Flaky tests, traces, debug |
-| | `browser-test-checklist.md` | Pre-merge browser test checklist |
-| **magento-audit** | `evidence-and-severity.md` | Evidence rules, severity, finding format |
-| | `audit-report-template.md` | Enterprise client deliverable |
-| | `environment-audit.md` | Version, PHP, Redis, search, deployment mode |
-| | `code-review.md` | Custom code, plugins, standards |
-| | `extension-audit.md` | Third-party and custom modules |
-| | `database-optimization.md` | Tables, indexes, bloat, EAV |
-| | `performance-audit.md` | CWV, cache, indexers, TTFB |
-| | `security-audit.md` | Patches, composer audit, 2FA, secrets |
-| | `infrastructure-audit.md` | CPU, RAM, PHP-FPM, services |
-| | `seo-audit.md` | Meta, sitemap, canonical, structured data |
-| | `frontend-audit.md` | Accessibility, JS/CSS, console errors |
-| | `magento-best-practices.md` | Cron, indexers, checkout config |
-| | `business-opportunities.md` | Strategic improvements |
-| | `version-and-security.md` | Version/patch shortcut |
-| | `ui-ux-review.md` | Admin and storefront UX narrative |
+<details>
+<summary><strong>magento-module</strong> — 18 references</summary>
 
-## Team rollout (RaveDigital)
+`module-scaffold.md` · `plugins-and-observers.md` · `database-and-schema.md` · `admin-grid.md` · `admin-form.md` · `grid-data-providers.md` · `extend-core-grids.md` · `static-analysis.md` · `module-troubleshooting.md` · …
 
-1. Clone or install from [harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills).
-2. Each developer runs `./magento-agent-skills/install.sh cursor` from the Magento root, **or**
-3. Commit symlinks in `.cursor/skills/` for zero-setup onboarding.
+</details>
 
-Pin a release tag in internal docs:
+<details>
+<summary><strong>magento-browser-testing</strong> — Cursor + Playwright</summary>
 
-```bash
-npx skills add harishrave/magento-agent-skills@v1.0.0 -a cursor -y
-```
+| Reference | Use |
+|---|---|
+| `cursor-browser.md` | Default — interactive smoke & E2E in Cursor (no npm) |
+| `playwright-mcp-optional.md` | Playwright MCP when user asks for Playwright / generated specs |
+| `playwright-setup.md` | Local `@playwright/test` for CI pipelines |
+| `storefront-flows.md` | Login, cart, checkout |
+| `admin-browser-tests.md` | Admin grid validation |
+
+</details>
+
+<details>
+<summary><strong>magento-audit</strong> — 11 audit categories</summary>
+
+`evidence-and-severity.md` · `audit-report-template.md` · `environment-audit.md` · `code-review.md` · `security-audit.md` · `performance-audit.md` · `database-optimization.md` · `seo-audit.md` · …
+
+</details>
+
+Full index: see previous releases or browse `skills/*/references/`.
 
 ## Requirements
 
-- Magento 2.4.x or Mage-OS codebase (for verification commands)
-- PHP 8.1+ for generated code
+- Magento 2.4.x or Mage-OS codebase (`bin/magento`)
+- PHP 8.1+
 - Git (recommended for symlink install)
-- Node.js (optional — only for `npx skills` alternative)
+- Node.js (optional — `npx skills` or local Playwright CI only)
 
 ## Contributing
 
-See [docs/contributing.md](docs/contributing.md). Skill changes should be reviewed like library code —
-they affect what every developer's agent generates.
+See [docs/contributing.md](docs/contributing.md). Skill changes are reviewed like library code — they shape what every developer's agent generates.
 
 ## Copyright
 
