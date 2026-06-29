@@ -1,11 +1,11 @@
-# Enterprise Audit Report Template
+# Project Audit Report Template
 
-Client-ready structure for RaveDigital Magento enterprise audits.  
+Client-ready structure for RaveDigital Magento project audits.  
 **Every finding** must follow [evidence-and-severity.md](evidence-and-severity.md).
 
 ---
 
-# Magento Enterprise Audit — [Client Name]
+# Magento Project Audit — [Client Name]
 
 **Project:** [store URL]  
 **Audit date:** [YYYY-MM-DD]  

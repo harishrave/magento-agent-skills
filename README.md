@@ -1,6 +1,6 @@
 # Magento Agent Skills
 
-**Production-grade AI skills for Magento 2, Mage-OS, and Adobe Commerce** — built by [RaveDigital](https://github.com/harishrave/magento-agent-skills) for teams using **Cursor**, Claude Code, Codex, Windsurf, and any agent that supports the open [Agent Skills](https://github.com/vercel-labs/skills) format.
+Pre-configured AI skills that guide your agent to work with Magento 2, Mage-OS, and Adobe Commerce. Use them in Cursor, Claude Code, Codex, Windsurf, and similar tools.
 
 Stop re-explaining Magento conventions in every chat. Install once; your agent follows the same patterns your senior developers would — `db_schema.xml`, constructor injection, ui_component grids, compile gates, and evidence-backed audits.
 
@@ -13,7 +13,7 @@ Stop re-explaining Magento conventions in every chat. Install once; your agent f
 - **Quality gates** — PHPCS (Magento2), PHPStan on `app/code`
 - **Browser testing** — Cursor built-in browser for login, checkout, and admin smoke tests (no extra MCP setup)
 - **Playwright (optional)** — MCP for generated specs; local `@playwright/test` for CI pipelines
-- **Enterprise audits** — 11 categories, evidence rules, health scores, roadmap-ready client reports
+- **Project audits** — 11 categories, evidence rules, health scores, roadmap-ready client reports
 - **Ready-made prompts** — [example-prompts.md](docs/example-prompts.md) with context and done criteria
 - **Agent-agnostic** — Cursor, Claude Code, Codex, Windsurf; installs to `.cursor/skills/` or `.agents/skills/`
 
@@ -25,7 +25,7 @@ No Composer package required — point skills at your existing Magento project.
 |---|---|
 | [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, admin grids/forms (ui_component), PHPCS, PHPStan |
 | [magento-browser-testing](skills/magento-browser-testing/) | **Cursor browser** for interactive UI/E2E smoke tests; **optional Playwright** (MCP + generated specs, local `@playwright/test` for CI) — login, checkout, admin, B2B |
-| [magento-audit](skills/magento-audit/) | Enterprise audit: environment, code, extensions, database, performance, security, SEO, roadmap |
+| [magento-audit](skills/magento-audit/) | Project audit: environment, code, extensions, database, performance, security, SEO, roadmap |
 
 ## Quick install
 
@@ -59,7 +59,7 @@ Skills route automatically from natural language:
 | *"PHPCS + PHPStan on app/code/RaveDigital/StoreLocator"* | **magento-module** |
 | *"Smoke-test guest checkout with Cursor browser — screenshots on failure"* | **magento-browser-testing** |
 | *"Generate Playwright specs for customer login — getByRole only"* | **magento-browser-testing** |
-| *"Enterprise audit with health scores — findings only, evidence required"* | **magento-audit** |
+| *"Project audit with health scores — findings only, evidence required"* | **magento-audit** |
 
 ## Repository structure
 
@@ -70,7 +70,7 @@ magento-agent-skills/
 ├── skills/
 │   ├── magento-module/references/          # Module + admin UI + static analysis
 │   ├── magento-browser-testing/references/ # Cursor browser + Playwright (optional)
-│   └── magento-audit/references/           # Enterprise audit playbooks
+│   └── magento-audit/references/           # Project audit playbooks
 ├── docs/
 │   ├── quick-start.md
 │   ├── example-prompts.md

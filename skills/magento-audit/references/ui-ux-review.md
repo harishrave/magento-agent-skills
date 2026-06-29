@@ -1,6 +1,6 @@
 # UI/UX Review
 
-Admin and storefront **usability narrative** for enterprise audits. Pair with [frontend-audit.md](frontend-audit.md) for measurable front-end checks.
+Admin and storefront **usability narrative** for project audits. Pair with [frontend-audit.md](frontend-audit.md) for measurable front-end checks.
 
 All findings must follow [evidence-and-severity.md](evidence-and-severity.md).
 

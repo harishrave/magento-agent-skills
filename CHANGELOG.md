@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Terminology** — "Enterprise audit" renamed to "project audit" across docs and magento-audit skill (Magento product package names unchanged)
 - **docs/example-prompts.md** — richer prompts with context, done criteria, and multi-skill workflows
 - **SKILL.md master prompts** — magento-module, magento-admin-ui, magento-audit aligned with example-prompts library
 - **magento-browser-testing** — Cursor browser default; optional Playwright MCP when user asks for Playwright or generated specs

@@ -30,6 +30,6 @@ Confirm **three** skills:
 
 **Audit:**
 
-> Enterprise audit per audit-report-template.md. Findings only.
+> Project audit per audit-report-template.md. Findings only.
 
 See [example-prompts.md](example-prompts.md) and [install.md](install.md).

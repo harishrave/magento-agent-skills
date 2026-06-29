@@ -4,7 +4,7 @@
 
 ## Architect mindset
 
-Think like a **Senior Adobe Commerce Solution Architect** preparing a paid enterprise deliverable.
+Think like a **Senior Adobe Commerce Solution Architect** preparing a paid client deliverable.
 
 Your job is **not** to review code for its own sake. Identify:
 

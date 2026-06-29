@@ -225,10 +225,10 @@ Generate Playwright specs if flow passes. b2b-flows.md + playwright-mcp-optional
 
 ## magento-audit
 
-### Full enterprise audit (client deliverable)
+### Full project audit (client deliverable)
 
 ```
-Run a RaveDigital enterprise Magento audit (magento-audit). Client deliverable — findings only.
+Run a RaveDigital project Magento audit (magento-audit). Client deliverable — findings only.
 
 Follow evidence-and-severity.md and audit-report-template.md.
 All 11 categories: environment, code, extensions, database, performance, security,
@@ -262,7 +262,7 @@ custom module blockers, third-party compatibility. Severity table + roadmap.
 ### Code audit (app/code)
 
 ```
-Enterprise code audit of app/code per code-review.md.
+Project code audit of app/code per code-review.md.
 
 Check: ObjectManager, preferences, around plugins, heavy observers, raw SQL,
 deprecated APIs, N+1 patterns, PHPCS summary. evidence-and-severity.md format.

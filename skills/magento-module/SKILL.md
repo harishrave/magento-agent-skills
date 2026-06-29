@@ -9,7 +9,7 @@ description: >-
   di.xml, db_schema.xml, ui_component XML, admin grids, product_listing, dataSource,
   mui/index/render, listingToolbar, or bin/magento errors. Strong triggers: module scaffold,
   plugin vs observer, admin grid, empty grid, ui_component, phpcs, phpstan. For browser validation
-  use magento-browser-testing. For enterprise audits use magento-audit. Do NOT trigger for
+  use magento-browser-testing. For project audits use magento-audit. Do NOT trigger for
   operational admin tasks, hosting questions, or non-Magento platforms.
 ---
 
@@ -122,7 +122,7 @@ admin-ui-troubleshooting.md.
 | After module work needs… | Skill |
 |---|---|
 | Browser validation of admin/storefront | **magento-browser-testing** |
-| Enterprise audit / findings report | **magento-audit** |
+| Project audit / findings report | **magento-audit** |
 
 ## Agent compatibility
 

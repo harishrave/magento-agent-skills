@@ -18,7 +18,7 @@ rg "SELECT .+ FROM" app/code/ --glob '*.php' -i
 rg "Zend_" app/code/
 ```
 
-## Enterprise code checks
+## Project code checks
 
 | Check | Evidence | Typical severity |
 |---|---|---|

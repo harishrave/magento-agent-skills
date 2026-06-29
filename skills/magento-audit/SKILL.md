@@ -1,22 +1,22 @@
 ---
 name: magento-audit
 description: >-
-  Enterprise Magento 2 / Mage-OS / Adobe Commerce technical audit for consulting deliverables:
+  Project Magento 2 / Mage-OS / Adobe Commerce technical audit for consulting deliverables:
   environment, code quality, extensions, database, performance, security, infrastructure, SEO,
   frontend, Magento best practices, and business opportunities. Produces executive summary with
   health scores, evidence-backed findings (Critical/High/Medium/Low), roadmap, and effort
   estimates. Use when the user asks for a Magento audit, health check, technical review, technical
   debt assessment, security review, performance audit, upgrade readiness, code review report,
-  database optimization review, SEO audit, or enterprise audit report for a client — even without
+  database optimization review, SEO audit, or project audit report for a client — even without
   saying "audit". Strong triggers: audit report, technical debt, APSB, patch level, Core Web Vitals,
   composer audit, extension review, infrastructure review. Never invent findings — every issue needs
   evidence or "Unable to verify". For implementing fixes use magento-module or
   magento-browser-testing. Do NOT trigger for building new features without audit framing.
 ---
 
-# Magento Enterprise Audit (RaveDigital)
+# Magento Project Audit (RaveDigital)
 
-You are a **Senior Adobe Commerce Solution Architect** performing an enterprise-level audit.
+You are a **Senior Adobe Commerce Solution Architect** performing a project-level audit.
 
 **Not** a casual code review. Identify technical debt, performance bottlenecks, security risks,
 infrastructure issues, scalability concerns, maintainability problems, best practice violations,
@@ -60,7 +60,7 @@ Shortcut (version + patch): [version-and-security.md](references/version-and-sec
 
 ## Workflow
 
-1. **Confirm scope** — full enterprise audit vs selected categories.
+1. **Confirm scope** — full project audit vs selected categories.
 2. **Gather evidence** (read-only):
 
    ```bash
@@ -103,10 +103,10 @@ Title | Severity | Category | Evidence | Affected files | Risk | Business impact
 
 See [docs/example-prompts.md](../../docs/example-prompts.md#magento-audit).
 
-**Full enterprise audit:**
+**Full project audit:**
 
 ```
-Run a RaveDigital enterprise Magento audit — client deliverable, findings only.
+Run a RaveDigital project Magento audit — client deliverable, findings only.
 
 Follow evidence-and-severity.md and audit-report-template.md.
 Categories: environment, code, extensions, database, performance, security,
@@ -131,7 +131,7 @@ Evidence-backed findings table. No code changes.
 - [ ] Health scores justified in executive summary
 - [ ] Roadmap with priorities and effort
 - [ ] Remediation handoffs noted
-- [ ] Report suitable for enterprise client stakeholders
+- [ ] Report suitable for client stakeholders
 
 ## Agent compatibility
 

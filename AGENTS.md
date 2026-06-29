@@ -20,7 +20,7 @@ See [docs/install.md](docs/install.md).
 |---|---|
 | Custom modules, plugins, schema, DI, APIs, admin grids/forms (ui_component), PHPCS, PHPStan | **magento-module** |
 | Cursor browser tests, E2E, checkout/login UI validation | **magento-browser-testing** |
-| **Project audit**, enterprise technical review, security/performance/SEO audit, technical debt report | **magento-audit** |
+| **Project audit**, project technical review, security/performance/SEO audit, technical debt report | **magento-audit** |
 
 ## RaveDigital defaults (always)
 
