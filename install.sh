@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # RaveDigital Magento Agent Skills Installer
-# Installs all skills (magento-module, magento-audit, magento-browser-testing) at once.
+# Installs all skills (magento-module, magento-audit, magento-browser-testing, response-depth) at once.
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/harishrave/magento-agent-skills/main/install.sh | sh -s cursor
@@ -49,7 +49,7 @@ print_info() { echo "${BLUE}[INFO]${NC} $1"; }
 usage() {
     echo "Usage: $0 [--copy] [--agents] [agent]"
     echo ""
-    echo "Installs all skills: magento-module, magento-audit, magento-browser-testing"
+    echo "Installs all skills: magento-module, magento-audit, magento-browser-testing, response-depth"
     echo ""
     echo "Agents: cursor, claude, codex, copilot, gemini, junie, opencode, windsurf"
     echo ""
@@ -312,7 +312,7 @@ echo ""
 echo "Skills directory: $skills_dir"
 echo ""
 echo "Installed:"
-for skill in magento-module magento-audit magento-browser-testing; do
+for skill in magento-module magento-audit magento-browser-testing response-depth; do
     if [ -e "$skills_dir/$skill" ]; then
         echo "  - $skill"
     fi

@@ -1,7 +1,7 @@
 # Installation Guide
 
 Install **all** RaveDigital Magento agent skills in one step — `magento-module`,
-`magento-audit`, and `magento-browser-testing`.
+`magento-audit`, `magento-browser-testing`, and `response-depth`.
 
 > **Repository:** [github.com/harishrave/magento-agent-skills](https://github.com/harishrave/magento-agent-skills)
 

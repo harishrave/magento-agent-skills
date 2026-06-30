@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **response-depth** — generalized response style skill: completeness over brevity, diagrams, examples, verification steps
+
 ### Fixed
 
 - **`install.sh` one-liner** — remote install copies skills instead of broken symlinks to deleted temp dirs

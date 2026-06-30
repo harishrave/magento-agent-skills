@@ -21,6 +21,7 @@
 | **magento-module** | Modules, DI, schema, plugins, admin ui_component, PHPCS, PHPStan | `di.xml`, `ui_component`, `product_listing`, `phpcs` |
 | **magento-browser-testing** | Cursor browser, UI validation, checkout, admin checks | `browser test`, `validate UI` |
 | **magento-audit** | Project audit: 11 categories, evidence-backed findings | `audit report`, `technical debt`, `security audit` |
+| **response-depth** | Thorough explanations, guides, how/why answers | `explain in detail`, `how does`, `walk me through`, `document` |
 
 ## Skill handoffs
 

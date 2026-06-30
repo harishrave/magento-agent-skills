@@ -14,6 +14,7 @@ Stop re-explaining Magento conventions in every chat. Install once; your agent f
 - **Browser testing** — Cursor built-in browser for login, checkout, and admin smoke tests (no extra MCP setup)
 - **Playwright (optional)** — MCP for generated specs; local `@playwright/test` for CI pipelines
 - **Project audits** — 11 categories, evidence rules, health scores, roadmap-ready client reports
+- **Response depth** — senior-level explanations with diagrams, examples, verification steps
 - **Ready-made prompts** — [example-prompts.md](docs/example-prompts.md) with context and done criteria
 - **Agent-agnostic** — Cursor, Claude Code, Codex, Windsurf; installs to `.cursor/skills/` or `.agents/skills/`
 
@@ -26,6 +27,7 @@ No Composer package required — point skills at your existing Magento project.
 | [magento-module](skills/magento-module/) | Module scaffolding, plugins, schema, DI, APIs, admin grids/forms (ui_component), PHPCS, PHPStan |
 | [magento-browser-testing](skills/magento-browser-testing/) | **Cursor browser** for interactive UI/E2E smoke tests; **optional Playwright** (MCP + generated specs, local `@playwright/test` for CI) — login, checkout, admin, B2B |
 | [magento-audit](skills/magento-audit/) | Project audit: environment, code, extensions, database, performance, security, SEO, roadmap |
+| [response-depth](skills/response-depth/) | Senior-level documentation depth — completeness, diagrams, examples, troubleshooting, verification |
 
 ## Quick install
 
